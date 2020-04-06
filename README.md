@@ -61,7 +61,7 @@ Students will be put into 3 or 4 person groups to complete the project.\n
 4. 'cancelled' - only 'pending' and 'packaged' orders can be cancelled
 
 ## Timeframe
-The following is an anticipated timeline of how these stories should be completed in order to be finished by 2/27/20 at 8pm.
+The following is an anticipated timeline of how these stories should be completed in order to be finished by 4/16/20 at 6pm.
 
 * Tuesday: Story 1 && Story 10 - Story 12
 * Wednesday: Story 2 - Story 9, Story 13 - Story 16
