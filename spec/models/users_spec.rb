@@ -23,5 +23,17 @@ RSpec.describe User do
                           password: "123password")
     expect(user.default?).to eq(true)
     end
+
+    it ".merchant?" do
+      user = User.create!(name: "Steve",
+                          address:"123 Main St.",
+                          city: "Fort Collins",
+                          state: "GA",
+                          zip: "66666",
+                          email: "chunky_lover@example.com",
+                          password: "123password",
+                          role: 1)
+    expect(user.merchant?).to eq(true)
+    end
   end
 end

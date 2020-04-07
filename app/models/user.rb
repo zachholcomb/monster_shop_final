@@ -8,4 +8,8 @@ class User < ApplicationRecord
   def default?
     role == 0
   end
+
+  def merchant?
+    role == 1
+  end
 end
