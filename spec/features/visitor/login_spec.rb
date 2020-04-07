@@ -66,7 +66,31 @@ RSpec.describe "As a visitor when I visit the login page" do
     fill_in :Email, with: user.email
     fill_in :Password, with: user.password
     click_button "Login"
-    
+
     expect(page).to have_content("You are now logged in!")
+  end
+
+  it "if I enter bad credentials I see a flash message saying that I entered an invalid email or password" do
+    user = User.create!(name: "Steve",
+                        address:"123 Main St.",
+                        city: "Fort Collins",
+                        state: "GA",
+                        zip: "66666",
+                        email: "chunky_lover@example.com",
+                        password: "123password")
+
+    visit "/login"
+
+    fill_in :Email, with: "skinny_lover@example.com"
+    fill_in :Password, with: user.password
+    click_button "Login"
+
+    expect(page).to have_content("You entered incorrect credentials.")
+
+    fill_in :Email, with: user.email
+    fill_in :Password, with: "boniver888"
+    click_button "Login"
+
+    expect(page).to have_content("You entered incorrect credentials.")
   end
 end

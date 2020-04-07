@@ -4,11 +4,13 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    if user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
       session[:user] = user.id
       flash[:notice] = "You are now logged in!"
       login_user(user)
     else
+      flash[:notice] = "You entered incorrect credentials."
+      render :new
     end
   end
 
