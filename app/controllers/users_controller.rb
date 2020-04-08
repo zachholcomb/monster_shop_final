@@ -15,10 +15,15 @@ class UsersController < ApplicationController
   end
 
   def show
+    require_user
   end
 
   private
   def user_params
     params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
+  end
+
+  def require_user
+    render file: "/public/404" unless current_user
   end
 end
