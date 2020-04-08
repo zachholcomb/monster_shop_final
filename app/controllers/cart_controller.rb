@@ -7,6 +7,7 @@ class CartController < ApplicationController
   end
 
   def show
+    restrict_admin
     @items = cart.items
   end
 
@@ -19,6 +20,8 @@ class CartController < ApplicationController
     session[:cart].delete(params[:item_id])
     redirect_to '/cart'
   end
-
-
+  private
+  def restrict_admin
+    render file: "/public/404" if current_admin?
+  end
 end
