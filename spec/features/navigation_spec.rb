@@ -86,4 +86,26 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
   end
+
+  describe "As an admin" do
+    it "I cannot access restricted routes" do
+      user = User.create!(name: "Steve",
+                          address:"123 Main St.",
+                          city: "Fort Collins",
+                          state: "GA",
+                          zip: "66666",
+                          email: "chunky_lover@example.com",
+                          password: "123password",
+                          role: 2)
+
+      visit '/login'
+      fill_in :Email, with: user.email
+      fill_in :Password, with: user.password
+      click_button "Login"
+      visit '/merchant/dashboard'
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+      visit '/cart'
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+    end
+  end
 end
