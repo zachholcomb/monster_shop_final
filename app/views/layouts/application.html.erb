@@ -15,9 +15,12 @@
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <% if current_user %>
+        Logged in as <%= current_user.name %>
         <%= link_to "Profile", "/profile"%>
         <%= link_to "Logout", "/logout", method: :delete %>
-        Logged in as <%= current_user.name %>
+        <% if current_user.merchant? %>
+          <%= link_to "Dashboard", "/merchant" %>
+        <% end %>
       <% else %>
         <%= link_to "Register", "/register"%>
         <%= link_to "Login", "/login"%>
