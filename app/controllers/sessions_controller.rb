@@ -18,6 +18,12 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    session.delete(:cart)
+    session.delete(:user)
+    flash[:notice] = "You have been sucessfully logged out. Bye!"
+    redirect_to "/"
+  end
   private
 
   def login_user(user)
