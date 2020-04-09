@@ -8,6 +8,7 @@
 
 Merchant.destroy_all
 Item.destroy_all
+ItemOrder.destroy_all
 
 #merchants
 bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -15,7 +16,24 @@ dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', c
 
 #bike_shop items
 tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+tire2 = meg.items.create(name: "Goodyear", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
 #dog_shop items
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+dog_bowl = brian.items.create(name: "Dog Bowl", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+dog_ball = brian.items.create(name: "Dog Ball", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+dog_leash = brian.items.create(name: "Dog Leash", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+
+#orders
+order1 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')     
+order2 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')
+
+#orders on items
+ItemOrder.create!(item: tire, order: order1, price: tire.price, quantity: 5)
+ItemOrder.create!(item: pull_toy, order: order2, price: pull_toy.price, quantity: 7)
+ItemOrder.create!(item: dog_bone, order: order1, price: dog_bone.price, quantity: 4)
+ItemOrder.create!(item: tire, order: order2, price: tire.price, quantity: 5)
+ItemOrder.create!(item: dog_ball, order: order2, price: dog_ball.price, quantity: 3)
+ItemOrder.create!(item: dog_bowl, order: order2, price: dog_bowl.price, quantity: 2)
+ItemOrder.create!(item: tire2, order: order1, price: tire.price, quantity: 1)
