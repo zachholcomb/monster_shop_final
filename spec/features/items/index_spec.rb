@@ -23,7 +23,7 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@dog_bone.merchant.name)
     end
 
-    it "I can see a list of all of the items "do
+    it "I can see a list of all of the items " do
 
       visit '/items'
 
@@ -55,6 +55,44 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
         expect(page).to have_link(@brian.name)
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
+      end
+    end
+
+    it "I see most and least popular items listed, plus the quantity bought" do
+      order1 = Order.create(name: 'Steve',
+                            address: '555 Free St.',
+                            city: 'Plano',
+                            state: 'TX',
+                            zip: '88992')
+     
+      order2 = Order.create(name: 'Steve',
+                        address: '555 Free St.',
+                        city: 'Plano',
+                        state: 'TX',
+                        zip: '88992')
+
+      ItemOrder.create!(item: @tire,
+                        order: order1,
+                        price: @tire.price,
+                        quantity: 5)
+
+      ItemOrder.create!(item: @pull_toy,
+                        order: order2,
+                        price: @pull_toy.price,
+                        quantity: 4)
+
+      ItemOrder.create!(item: @dog_bone,
+                        order: order1,
+                        price: @dog_bone.price,
+                        quantity: 3)
+
+      ItemOrder.create!(item: @tire,
+                        order: order2,
+                        price: @tire.price,
+                        quantity: 5)
+      visit "/items"
+      within '#item-stats' do
+        expect(page).to have_content('Gatorskins: 10')
       end
     end
   end
