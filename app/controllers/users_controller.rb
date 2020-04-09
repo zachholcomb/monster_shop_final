@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
     if @user.save
       flash[:notice] = "You are successfully registered and logged in!"
       redirect_to "/profile"
@@ -16,6 +16,22 @@ class UsersController < ApplicationController
 
   def show
     require_user
+    @user = current_user
+  end
+
+  def edit_password 
+  end
+
+  def update
+    if current_user.update(user_params)
+      if params[:user][:password]
+        flash[:notice] = "Your password has been updated!"
+        return redirect_to '/profile'
+      end
+    else
+      flash[:error] = current_user.errors.full_messages.to_sentence
+      redirect_to "/profile/edit"
+    end
   end
 
   def edit
@@ -23,13 +39,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(session[:user])
-    user.update(user_params)
-    if user.save
+    if current_user.update(user_params)
+      if params[:password]
+        flash[:notice] = "Your password has been updated!"
+        return redirect_to '/profile'
+      end
       flash[:notice] = "Your profile has been updated!"
       redirect_to "/profile"
     else
-      flash[:notice] = user.errors.full_messages.to_sentence
+      flash[:notice] = current_user.errors.full_messages.to_sentence
       redirect_to "/profile/edit"
     end
   end
