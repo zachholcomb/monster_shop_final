@@ -28,4 +28,23 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def self.most_purchased
+     joins(:item_orders)
+         .select("items.*, sum(item_orders.quantity) as item_qty")
+         .group("items.id")
+         .order("item_qty desc")
+         .limit(5)
+  end
+
+  def self.least_purchased
+    left_outer_joins(:item_orders)
+        .select("items.*, sum(item_orders.quantity) as item_qty")
+        .group("items.id")
+        .order("item_qty nulls first")
+        .limit(5)
+  end
+
+  def quantity_purchased
+    item_orders.sum(:quantity)
+  end
 end
