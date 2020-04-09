@@ -23,3 +23,16 @@
     </section>
     <% end %>
 </section>
+<section id="item-stats">
+  <% @items.most_purchased.each do |item| %>
+    <ol> 
+      <li><%= item.name%>: <%= item.quantity_purchased %>
+    </ol>
+  <% end %>
+
+    <% @items.least_purchased.each do |item| %>
+    <ol> 
+      <li><%= item.name%>: <%= item.quantity_purchased %>
+    </ol>
+  <% end %>
+</section>
