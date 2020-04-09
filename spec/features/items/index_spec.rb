@@ -12,18 +12,24 @@ RSpec.describe "Items Index Page" do
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
     end
 
-    it "all items or merchant names are links" do
+    it "all items, pictures, and merchant names are links" do
       visit '/items'
 
       expect(page).to have_link(@tire.name)
       expect(page).to have_link(@tire.merchant.name)
+      expect(page).to have_css("img[src*='#{@tire.image}']")
       expect(page).to have_link(@pull_toy.name)
       expect(page).to have_link(@pull_toy.merchant.name)
-      expect(page).to have_link(@dog_bone.name)
-      expect(page).to have_link(@dog_bone.merchant.name)
+      expect(page).to have_css("img[src*='#{@pull_toy.image}']")
+      find(:xpath, "//a/img[@alt='Tug toy dog pull 9010 2 800x800']/..").click
+      expect(current_path).to eq("/items/#{@pull_toy.id}")
     end
 
+<<<<<<< HEAD
     it "I can see a list of all of the items " do
+=======
+    it "I can see a list of all of the active items "do
+>>>>>>> 4b1240717f9bded2d9d968d7e0fb45735500b702
 
       visit '/items'
 
@@ -47,15 +53,13 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@pull_toy.image}']")
       end
 
-      within "#item-#{@dog_bone.id}" do
-        expect(page).to have_link(@dog_bone.name)
-        expect(page).to have_content(@dog_bone.description)
-        expect(page).to have_content("Price: $#{@dog_bone.price}")
-        expect(page).to have_content("Inactive")
-        expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
-        expect(page).to have_link(@brian.name)
-        expect(page).to have_css("img[src*='#{@dog_bone.image}']")
-      end
+        expect(page).to have_no_link(@dog_bone.name)
+        expect(page).to have_no_content(@dog_bone.description)
+        expect(page).to have_no_content("Price: $#{@dog_bone.price}")
+        expect(page).to have_no_content("Inactive")
+        expect(page).to have_no_content("Inventory: #{@dog_bone.inventory}")
+        expect(page).to have_no_css("img[src*='#{@dog_bone.image}']")
+
     end
 
     it "I see most and least popular items listed, plus the quantity bought" do
