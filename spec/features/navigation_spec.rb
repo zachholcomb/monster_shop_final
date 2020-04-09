@@ -168,7 +168,7 @@ RSpec.describe 'Site Navigation' do
   describe "as a merchant, i see all user links" do
     it "plus a link to my merchant dashboard" do
 
-      user = User.create!(
+      merchant = User.create!(
         name: "Steve",
         address:"123 Main St.",
         city: "Fort Collins",
@@ -180,8 +180,8 @@ RSpec.describe 'Site Navigation' do
       )
 
       visit "/login"
-      fill_in :Email, with: user.email
-      fill_in :Password, with: user.password
+      fill_in :Email, with: merchant.email
+      fill_in :Password, with: merchant.password
       click_button "Login"
 
       within 'nav' do
@@ -194,9 +194,51 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_no_link('Register')
         expect(page).to have_link('Dashboard')
         expect(page).to have_no_link('Login')
-        expect(page).to have_content("Logged in as #{user.name}")
+        expect(page).to have_content("Logged in as #{merchant.name}")
       end
+    end
+  end
 
+  describe "As an admin,", type: :feature do 
+    it "I see the same links as a regular user plus /admin and /admin/user minus /cart." do 
+      admin = User.create!(
+        name: "Steve",
+        address:"123 Main St.",
+        city: "Fort Collins",
+        state: "GA",
+        zip: "66666",
+        email: "chunky_lover@example.com",
+        password: "123password",
+        role: 2
+      )
+
+      visit "/login"
+      fill_in :Email, with: admin.email
+      fill_in :Password, with: admin.password
+      click_button "Login"
+
+      within 'nav' do
+        expect(page).to have_link('Home')
+        expect(page).to have_link('All Items')
+        expect(page).to have_link('All Merchants')
+        expect(page).to have_link('Profile')
+        expect(page).to have_link('Logout')
+        expect(page).to have_link('Admin Dashboard')
+        expect(page).to have_link('See all Users')
+        expect(page).to have_content("Logged in as #{admin.name}")
+        expect(page).to have_no_link('Register')
+        expect(page).to have_no_link('Login')
+        expect(page).to have_no_content('Cart: 0')
+      end
     end
   end
 end
+# As an admin
+# I see the same links as a regular user
+# Plus the following links
+
+# a link to my admin dashboard ("/admin")
+# a link to see all users ("/admin/users")
+# Minus the following links/info
+
+# a link to my shopping cart ("/cart") or count of cart items
