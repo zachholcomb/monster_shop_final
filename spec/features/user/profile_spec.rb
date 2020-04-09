@@ -28,7 +28,20 @@ RSpec.describe "As a registered user" do
     end
 
     it "and I see a link to edit my profile data" do
+      user = User.create!(name: "Steve",
+                          address:"123 Main St.",
+                          city: "Fort Collins",
+                          state: "GA",
+                          zip: "66666",
+                          email: "chunky_lover@example.com",
+                          password: "123password")
 
+      visit "/login"
+      fill_in :Email, with: user.email
+      fill_in :Password, with: user.password
+      click_button "Login"
+
+      expect(page).to have_link("Edit My Profile")
     end
   end
 end

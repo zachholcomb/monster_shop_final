@@ -34,9 +34,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(session[:user])
+  end
+
+  def update
+    user = User.find(session[:user])
+    user.update(user_params)
+    if user.save
+      flash[:notice] = "Your profile has been updated!"
+      redirect_to "/profile"
+    else
+      flash[:notice] = user.errors.full_messages.to_sentence
+      redirect_to "/profile/edit"
+    end
+  end
+
   private
   def user_params
-    params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
+    params.permit(:name, :address, :city, :state, :zip, :email, :password)
   end
 
   def require_user
