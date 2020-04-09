@@ -35,5 +35,39 @@ RSpec.describe "As a registered user" do
       expect(page).to have_content("Fort Worth")
       expect(page).to_not have_content("123 Main St.")
     end
+
+    it "I cannot update my email to another that is already in use" do
+      user_1 = User.create!(name: "Steve",
+                          address:"123 Main St.",
+                          city: "Fort Collins",
+                          state: "GA",
+                          zip: "66666",
+                          email: "chunky_lover@example.com",
+                          password: "123password")
+
+      user_2 = User.create!(name: "Steve",
+                          address:"123 Main St.",
+                          city: "Fort Collins",
+                          state: "GA",
+                          zip: "66666",
+                          email: "skinny_lover@example.com",
+                          password: "123password")
+
+      visit "/login"
+      fill_in :Email, with: user_1.email
+      fill_in :Password, with: user_2.password
+      click_button "Login"
+
+      click_link "Edit My Profile"
+
+      fill_in :Email, with: "skinny_lover@example.com"
+      click_on "Submit"
+
+      expect(current_path).to eq("/profile/edit")
+
+      expect(page).to have_content("Email has already been taken")
+      expect(find_field(:Name).value).to eq("Steve")
+      expect(find_field(:Address).value).to eq("123 Main St.")
+    end
   end
 end
