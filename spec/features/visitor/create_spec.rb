@@ -10,7 +10,7 @@ RSpec.describe 'users create form' do
     fill_in :Zip, with: "66666"
     fill_in :Email, with: "chunky_lover@example.com"
     fill_in :Password, with: "123password"
-    fill_in :user_password_confirmation, with: "123password"
+    fill_in :password_confirmation, with: "123password"
     click_button "Create User"
     expect(page).to have_current_path("/profile")
     expect(page).to have_content("You are successfully registered and logged in!")
@@ -25,7 +25,7 @@ RSpec.describe 'users create form' do
     fill_in :Zip, with: "66666"
     fill_in :Email, with: "chunky_lover@example.com"
     fill_in :Password, with: "123password"
-    fill_in :user_password_confirmation, with: "123password"
+    fill_in :password_confirmation, with: "123password"
     click_button "Create User"
     expect(page).to have_content("Name can't be blank and City can't be blank")
   end
@@ -47,7 +47,7 @@ RSpec.describe 'users create form' do
     fill_in :Zip, with: "66666"
     fill_in :Email, with: "chunky_lover@example.com"
     fill_in :Password, with: "123password"
-    fill_in :user_password_confirmation, with: "123password"
+    fill_in :password_confirmation, with: "123password"
     click_button "Create User"
     expect(page).to have_content("Email has already been taken")
     expect(find_field(:Name).value).to eq("Steve")
