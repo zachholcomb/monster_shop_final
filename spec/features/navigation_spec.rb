@@ -35,7 +35,6 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/login')
-
     end
 
     it "I can see a cart indicator on all pages" do
@@ -160,6 +159,11 @@ RSpec.describe 'Site Navigation' do
             expect(page).to have_content("Logged in as #{user.name}")
           end
 
+          within 'nav' do
+            click_on 'Profile'
+          end
+
+          expect(current_path).to eq("/profile")
         end
       end
     end
