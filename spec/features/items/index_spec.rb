@@ -25,11 +25,9 @@ RSpec.describe "Items Index Page" do
       expect(current_path).to eq("/items/#{@pull_toy.id}")
     end
 
-<<<<<<< HEAD
-    it "I can see a list of all of the items " do
-=======
+
     it "I can see a list of all of the active items "do
->>>>>>> 4b1240717f9bded2d9d968d7e0fb45735500b702
+
 
       visit '/items'
 
