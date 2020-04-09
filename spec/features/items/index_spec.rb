@@ -21,6 +21,8 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@pull_toy.name)
       expect(page).to have_link(@pull_toy.merchant.name)
       expect(page).to have_css("img[src*='#{@pull_toy.image}']")
+      find(:xpath, "//a/img[@alt='Tug toy dog pull 9010 2 800x800']/..").click
+      expect(current_path).to eq("/items/#{@pull_toy.id}")
     end
 
     it "I can see a list of all of the active items "do

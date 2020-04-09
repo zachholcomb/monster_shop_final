@@ -5,7 +5,7 @@ class ItemsController<ApplicationController
       @merchant = Merchant.find(params[:merchant_id])
       @items = @merchant.items
     else
-      @items = Item.where(active?: true)
+      @items = Item.active_items
     end
   end
 
