@@ -88,7 +88,6 @@ RSpec.describe "Items Index Page" do
       ItemOrder.create!(item: tire2, order: order1, price: tire2.price, quantity: 1)
 
       visit "/items"
-      save_and_open_page
       within '#item-stats' do
         within "#most-popular" do
           expect(page.all('li')[0]).to have_content('Gatorskins: 10')
