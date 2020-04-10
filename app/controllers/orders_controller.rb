@@ -1,7 +1,10 @@
 class OrdersController <ApplicationController
 
   def new
-
+    if !current_user
+      flash[:error] = 'Unable to checkout, please log in or register.'
+      redirect_to '/cart'
+    end
   end
 
   def show
