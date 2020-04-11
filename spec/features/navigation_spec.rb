@@ -87,7 +87,8 @@ RSpec.describe 'Site Navigation' do
 
   describe "As a merchant" do
     it "I cannot access restricted routes" do
-      user = User.create!(name: "Steve",
+      meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      user = meg.users.create!(name: "Steve",
                           address:"123 Main St.",
                           city: "Fort Collins",
                           state: "GA",
@@ -172,7 +173,8 @@ RSpec.describe 'Site Navigation' do
   describe "as a merchant, i see all user links" do
     it "plus a link to my merchant dashboard" do
 
-      merchant = User.create!(
+      meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      merchant = meg.users.create!(
         name: "Steve",
         address:"123 Main St.",
         city: "Fort Collins",
@@ -203,8 +205,8 @@ RSpec.describe 'Site Navigation' do
     end
   end
 
-  describe "As an admin,", type: :feature do 
-    it "I see the same links as a regular user plus /admin and /admin/user minus /cart." do 
+  describe "As an admin,", type: :feature do
+    it "I see the same links as a regular user plus /admin and /admin/user minus /cart." do
       admin = User.create!(
         name: "Steve",
         address:"123 Main St.",
@@ -237,12 +239,3 @@ RSpec.describe 'Site Navigation' do
     end
   end
 end
-# As an admin
-# I see the same links as a regular user
-# Plus the following links
-
-# a link to my admin dashboard ("/admin")
-# a link to see all users ("/admin/users")
-# Minus the following links/info
-
-# a link to my shopping cart ("/cart") or count of cart items
