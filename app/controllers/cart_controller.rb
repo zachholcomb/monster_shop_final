@@ -29,6 +29,14 @@ class CartController < ApplicationController
     redirect_to cart_path
   end
 
+  def decrease_quantity
+    cart.dec_qty(params[:item_id])
+    if cart.decrease_removal?(params[:item_id])
+      return remove_item 
+    end
+    redirect_to cart_path
+  end
+
   private
     def restrict_admin
       render file: "/public/404" if current_admin?
