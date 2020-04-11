@@ -1,7 +1,7 @@
-class Merchant::DashboardController < ApplicationController
+class Merchant::ItemsController < ApplicationController
   before_action :require_merchant
 
-  def show
+  def index
     @merchant = current_user.merchants[0]
   end
 

@@ -65,7 +65,7 @@ RSpec.describe "Items Index Page" do
                             city: 'Plano',
                             state: 'TX',
                             zip: '88992')
-     
+
       order2 = Order.create(name: 'Steve',
                         address: '555 Free St.',
                         city: 'Plano',
@@ -77,7 +77,7 @@ RSpec.describe "Items Index Page" do
       dog_ball = @brian.items.create(name: "Dog Ball", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       dog_leash = @brian.items.create(name: "Dog Leash", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
-      order1 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')     
+      order1 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')
       order2 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')
       ItemOrder.create!(item: @tire, order: order1, price: @tire.price, quantity: 5)
       ItemOrder.create!(item: @pull_toy, order: order2, price: @pull_toy.price, quantity: 7)
@@ -88,7 +88,6 @@ RSpec.describe "Items Index Page" do
       ItemOrder.create!(item: tire2, order: order1, price: tire2.price, quantity: 1)
 
       visit "/items"
-      save_and_open_page
       within '#item-stats' do
         within "#most-popular" do
           expect(page.all('li')[0]).to have_content('Gatorskins: 10')

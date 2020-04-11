@@ -19,14 +19,15 @@ RSpec.describe "As a visitor when I visit the login page" do
   end
 
   it "if I am a merchant user I'm redirected to my merchant dashboard page when I submit valid information" do
-    merchant = User.create!(name: "Steve",
-                        address:"123 Main St.",
-                        city: "Fort Collins",
-                        state: "GA",
-                        zip: "66666",
-                        email: "chunky_merchant@example.com",
-                        password: "123password",
-                        role: 1)
+    meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    merchant = meg.users.create!(name: "Steve",
+                            address:"123 Main St.",
+                            city: "Fort Collins",
+                            state: "GA",
+                            zip: "66666",
+                            email: "chunky_merchant@example.com",
+                            password: "123password",
+                            role: 1)
 
     visit "/login"
 
