@@ -2,7 +2,7 @@ class Merchant::ItemsController < ApplicationController
   before_action :require_merchant
 
   def index
-    @items = current_user.merchants[0].items
+    @merchant = current_user.merchants[0]
   end
 
   private
