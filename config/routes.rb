@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   get '/profile/edit/password', to: 'users#edit_password'
   get "/profile/edit", to: "users#edit"
   patch "/profile", to: "users#update"
+  get "/profile/orders", to: "orders#index"
+  get "/profile/orders/:id", to: 'orders#show'
 
   #merchant
   namespace :merchant do
