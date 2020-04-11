@@ -1,0 +1,17 @@
+<h1><%= @items[0].merchant.name %> Items</h1>
+<section class="grid-container">
+  <% @items.each do |item| %>
+    <section class = "grid-item" id= 'item-<%=item.id%>'>
+      <h2><%=link_to item.name, "/items/#{item.id}" %></h2>
+      <%=link_to image_tag(item.image), "/items/#{item.id}" %>
+      <p> <%= item.description unless @merchant%></p>
+      <p>Price: <%=number_to_currency(item.price) %></p>
+      <p>Inventory: <%= item.inventory %></p>
+      <% if item.active? %>
+        <p>Active</p>
+      <% else %>
+        <p>Inactive</p>
+      <% end %>
+    </section>
+    <% end %>
+</section>

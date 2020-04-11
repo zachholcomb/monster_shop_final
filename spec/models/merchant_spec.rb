@@ -10,7 +10,9 @@ describe Merchant, type: :model do
   end
 
   describe "relationships" do
-    it {should have_many :items}
+    it { should have_many :items }
+    it { should have_many :merchant_employees }
+    it { should have_many(:users).through(:merchant_employees) }
   end
 
   describe 'instance methods' do
