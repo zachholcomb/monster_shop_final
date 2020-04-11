@@ -13,6 +13,7 @@ RSpec.describe User do
   end
 
   describe "relationships" do
+    it { should have_many :orders }
     it { should have_many :merchant_employees }
     it { should have_many(:merchants).through(:merchant_employees) }
   end

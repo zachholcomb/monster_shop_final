@@ -76,9 +76,10 @@ RSpec.describe "Items Index Page" do
       dog_bowl = @brian.items.create(name: "Dog Bowl", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       dog_ball = @brian.items.create(name: "Dog Ball", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       dog_leash = @brian.items.create(name: "Dog Leash", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-
-      order1 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')
-      order2 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992')
+      
+      user = User.create!(name: "Steve", address:"123 Main St.", city: "Fort Collins", state: "GA", zip: "66666", email: "chunky_lover@example.com", password: "123password")
+      order1 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', user: user)
+      order2 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', user: user)
       ItemOrder.create!(item: @tire, order: order1, price: @tire.price, quantity: 5)
       ItemOrder.create!(item: @pull_toy, order: order2, price: @pull_toy.price, quantity: 7)
       ItemOrder.create!(item: dog_bone, order: order1, price: dog_bone.price, quantity: 4)
