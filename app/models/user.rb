@@ -5,6 +5,7 @@ class User < ApplicationRecord
   after_validation { self.errors.messages.delete(:password_digest) }
   has_many :merchant_employees
   has_many :merchants, through: :merchant_employees
+  has_many :orders
   has_secure_password
   enum role: %w(default merchant admin)
 end
