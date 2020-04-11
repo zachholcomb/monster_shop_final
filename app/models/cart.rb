@@ -32,4 +32,12 @@ class Cart
     end
   end
 
+  def inc_qty(item_id) 
+    contents[item_id] += 1
+  end
+
+  def out_of_stock?(item_id) 
+    Item.find(item_id).inventory <= contents[item_id]
+  end
 end
+
