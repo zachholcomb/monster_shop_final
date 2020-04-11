@@ -1,0 +1,7 @@
+<h1>Your Orders</h1>
+<% @orders.each do |order| %>
+  <section id="order-<%= order.id %>">
+  <h3><%= link_to "Order - #{order.id}", "/profile/orders/#{order.id}" %></h3>
+  <p>Order Status: <%= order.status %></p>
+  </section>
+<% end %>
