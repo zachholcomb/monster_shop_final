@@ -28,13 +28,16 @@
       <td>
         <p><%=number_to_currency(item.price)%></p>
       </td>
-      <td>
-        <center>
-          <p><%=quantity%></p>
-          <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
-        </center>
-        </td>
-      <td>
+      <section id="item-quantity-<%= item.id %>">
+        <td>
+          <center>
+            <p><%=quantity%></p>
+            <p><%= link_to "Increase Quantity", "/cart/#{item.id}", method: :patch %></p>
+            <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
+          </center>
+          </td>
+        <td>
+      </section>
         <p><%=number_to_currency(cart.subtotal(item))%></p>
     </td>
     </tr>
