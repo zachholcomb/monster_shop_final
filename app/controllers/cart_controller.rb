@@ -20,8 +20,17 @@ class CartController < ApplicationController
     session[:cart].delete(params[:item_id])
     redirect_to '/cart'
   end
-  private
-  def restrict_admin
-    render file: "/public/404" if current_admin?
+
+  def increase_quantity
+    if cart.out_of_stock?(params[:item_id])
+      flash[:notice] = "Unable to add item! Inventory has reached 0."
+    end
+    cart.inc_qty(params[:item_id])
+    redirect_to cart_path
   end
+
+  private
+    def restrict_admin
+      render file: "/public/404" if current_admin?
+    end
 end
