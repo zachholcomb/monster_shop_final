@@ -112,12 +112,12 @@ RSpec.describe 'Cart show' do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
       @items_in_cart = [@paper,@tire,@pencil]
+      @order = @user.orders.create!(name: @user.name, address: @user.address, city: @user.city, state: @user.state, zip: @user.zip)
     end
     
-    it "when I have items in my cart and visit my cart, I see a button to checkout" do
+    it "when I have items in my cart and visit my cart, I checkout and am redirected to my profiles orders page" do
       visit "/cart"
-      expect(page).to have_button('Checkout Now')
-      click_button('Checkout Now')
+      click_link('Checkout')
       expect(current_path).to eq("/orders/new")
       fill_in :name, with: "#{@user.name}"
       fill_in :address, with: "#{@user.address}"
@@ -125,9 +125,18 @@ RSpec.describe 'Cart show' do
       fill_in :state, with: "#{@user.state}"
       fill_in :zip, with: "#{@user.zip}"
       click_button('Create Order')
-      expect(page).to have_current_path("/profiles/orders")
+      expect(page).to have_current_path("/profile/orders")
       expect(page).to have_content("Your order was successfully created")
-      expect(page).to have_content("Orders:")
+      expect(page).to have_content("Your Orders")
+      expect(page).to have_content("Cart: 0")
+    end
+
+    it "when I visit my profiles orders page, I see my orders listed" do
+      visit "/profile/orders"
+      within "#order-#{@order.id}" do
+        expect(page).to have_content("Order - #{@order.id}")
+        expect(page).to have_content('Order Status: Pending')
+      end
     end
   end
 end
