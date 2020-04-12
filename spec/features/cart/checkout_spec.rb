@@ -127,7 +127,7 @@ RSpec.describe 'Cart show' do
       click_button('Create Order')
       expect(page).to have_current_path("/profile/orders")
       expect(page).to have_content("Your order was successfully created")
-      expect(page).to have_content("Your Orders")
+      expect(page).to have_content("My Orders")
       expect(page).to have_content("Cart: 0")
     end
 
