@@ -58,3 +58,6 @@
   <p>Date Placed: <%= @order.created_at%></p>
   <p>Date Last Updated: <%= @order.updated_at%></p>
 </section>
+<section id="cancel_order">
+  <p><%=link_to "Cancel Order", "/profile/orders/#{@order.id}/delete" %></p>
+</section>
