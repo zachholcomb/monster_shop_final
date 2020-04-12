@@ -59,22 +59,6 @@ RSpec.describe "As an Admin,", type: :feature do
         expect(page).to have_content(order4.created_at.to_date)
         expect(page).to have_content(order4.status)
       end
-      save_and_open_page
     end 
   end 
-end 
-
-# As an admin user
-# When I visit my admin dashboard ("/admin")
-# Then I see all orders in the system.
-# For each order I see the following information:
-
-# user who placed the order, which links to admin view of user profile
-# order id
-# date the order was created
-# Orders are sorted by "status" in this order:
-
-# packaged
-# pending
-# shipped
-# cancelled
+end
