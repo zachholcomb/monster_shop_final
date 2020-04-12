@@ -9,6 +9,10 @@
 Merchant.destroy_all
 Item.destroy_all
 ItemOrder.destroy_all
+User.destroy_all
+
+#users 
+admin = User.create(name: "Jordan Sewell", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "chunky_admin@example.com", password: "123password")
 
 #merchants
 bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -30,10 +34,10 @@ order1 = Order.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plan
 order2 = Order.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301')
 
 #orders on items
-ItemOrder.create!(item: tire, order: order1, price: tire.price, quantity: 5)
-ItemOrder.create!(item: pull_toy, order: order2, price: pull_toy.price, quantity: 7)
-ItemOrder.create!(item: dog_bone, order: order1, price: dog_bone.price, quantity: 4)
-ItemOrder.create!(item: tire, order: order2, price: tire.price, quantity: 5)
-ItemOrder.create!(item: dog_ball, order: order2, price: dog_ball.price, quantity: 3)
-ItemOrder.create!(item: dog_bowl, order: order2, price: dog_bowl.price, quantity: 2)
-ItemOrder.create!(item: tire2, order: order1, price: tire.price, quantity: 1)
+ItemOrder.create(item: tire, order: order1, price: tire.price, quantity: 5)
+ItemOrder.create(item: pull_toy, order: order2, price: pull_toy.price, quantity: 7)
+ItemOrder.create(item: dog_bone, order: order1, price: dog_bone.price, quantity: 4)
+ItemOrder.create(item: tire, order: order2, price: tire.price, quantity: 5)
+ItemOrder.create(item: dog_ball, order: order2, price: dog_ball.price, quantity: 3)
+ItemOrder.create(item: dog_bowl, order: order2, price: dog_bowl.price, quantity: 2)
+ItemOrder.create(item: tire2, order: order1, price: tire.price, quantity: 1)
