@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   #admin
   namespace :admin do
     get "/dashboard", to: "dashboard#show"
+    get "/users/:user_id", to: "users#show"
   end
 
 end
