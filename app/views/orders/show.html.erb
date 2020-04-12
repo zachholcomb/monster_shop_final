@@ -18,11 +18,13 @@
   </table>
 </section>
 
-<h1 align = "center">Order Info</h1>
+<h1 align = "center">Order <%=@order.id%> Info</h1>
 <center>
   <table>
     <tr>
       <th>Item</th>
+      <th>Description</th>
+      <th>Image</th>
       <th>Sold By</th>
       <th>Price</th>
       <th>Quantity</th>
@@ -31,7 +33,9 @@
   <% @order.item_orders.each do |item_order|%>
     <tr>
     <section id = "item-<%=item_order.item_id%>">
-        <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><p><%= link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><p><%= item_order.item.description%></p></td>
+        <td><p><%= image_tag item_order.item.image%></p></td>
         <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
@@ -41,9 +45,16 @@
   <% end %>
 </table>
 
+<section id="total_item_quantity">
+  <p>Total Item Quantity: <%=@order.total_item_quantity%></p>
+</section>
 <section id="grandtotal">
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
 </section>
+<section id="status">
+  <p>Status: <%= @order.status%></p>
+</section>
 <section id="datecreated">
-  <p> <%= @order.created_at%></p>
+  <p>Date Placed: <%= @order.created_at%></p>
+  <p>Date Last Updated: <%= @order.updated_at%></p>
 </section>
