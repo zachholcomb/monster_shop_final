@@ -11,10 +11,17 @@ class Merchant::ItemsController < ApplicationController
     redirect_to '/merchant/items'
   end
 
+  def destroy
+    merchant = find_merchant_from_user
+    flash[:notice] = "#{find_item(merchant).name} was successfully deleted"
+    find_item(merchant).delete
+    redirect_to '/merchant/items'
+  end
+
   private
   
   def find_item(merchant)
-    merchant.items.find(params[:item_id])
+    merchant.items.find(params[:id])
   end
 
   def change_item_status(merchant)
