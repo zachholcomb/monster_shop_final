@@ -47,4 +47,8 @@ class Item <ApplicationRecord
   def quantity_purchased
     item_orders.sum(:quantity)
   end
+
+  def return_stock(amount)
+    self.inventory += amount
+  end
 end
