@@ -3,4 +3,5 @@
 <p><%= @merchant.address %>
 <p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %>
 <h2>Orders</h2>
+<% @merchant.pending_orders %>
 <h2><%= link_to "Merchant Items", "/merchant/items" %></h2>
