@@ -2,10 +2,11 @@
 
 <table class = "all-orders">
   <tr>
-    <th>User</th>
+    <th>Order Owner</th>
     <th>Order ID</th>
-    <th>Created On</th>
+    <th>Creation Date</th>
     <th>Status</th>
+    <th>Controls</th>
   </tr>
   <% @orders.each do |order| %>
     <section id="order-<%= order.id %>">
@@ -14,6 +15,11 @@
        <td><%= order.id %></td>
        <td><%= order.created_at.to_date %></td>
        <td><%= order.status %></td>
+       <td>
+        <%if order.status == "Packaged" %>
+          <%= link_to "Ship this Order", admin_orders_path(order_id: order.id), method: :patch %>
+        <% end %>
+      </td>
       </tr>
     </section>
   <% end %>
