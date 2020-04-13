@@ -10,7 +10,7 @@
       <% if item.active? %>
         <p>Active <%= button_to 'Deactivate', "/merchant/items/#{item.id}?type=deactivate", method: :patch %></p>
       <% else %>
-        <p>Inactive</p>
+        <p>Inactive <%= button_to 'Activate', "/merchant/items/#{item.id}?type=activate", method: :patch %></p>
       <% end %>
     </section>
     <% end %>

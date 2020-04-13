@@ -2,11 +2,11 @@ class Merchant::ItemsController < ApplicationController
   before_action :require_merchant
 
   def index
-    @merchant = user_to_merchant
+    @merchant = find_merchant_from_user
   end
 
   def update 
-    merchant = user_to_merchant
+    merchant = find_merchant_from_user
     change_item_status(merchant)
     redirect_to '/merchant/items'
   end
@@ -21,10 +21,13 @@ class Merchant::ItemsController < ApplicationController
     if params[:type] == 'deactivate'
       find_item(merchant).update(active?: false)
       flash[:notice] = "#{find_item(merchant).name} is no longer for sale!"
+    elsif params[:type] == 'activate'
+      find_item(merchant).update(active?: true)
+      flash[:notice] = "#{find_item(merchant).name} is now for sale!"
     end
   end
 
-  def user_to_merchant
+  def find_merchant_from_user
     current_user.merchants[0]
   end
 
