@@ -87,7 +87,7 @@ RSpec.describe "As an Admin,", type: :feature do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      visit "/profile/orders/#{@order1.id}"
+      visit "/profile/orders/#{@order2.id}"
 
       expect(page).to_not have_content("Cancel Order")
     end
