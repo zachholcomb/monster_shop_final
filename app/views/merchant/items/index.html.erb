@@ -8,7 +8,7 @@
       <p>Price: <%=number_to_currency(item.price) %></p>
       <p>Inventory: <%= item.inventory %></p>
       <% if item.active? %>
-        <p>Active <%= button_to 'Deactivate', '/merchant/items', method: :patch %></p>
+        <p>Active <%= button_to 'Deactivate', "/merchant/items/#{item.id}?type=deactivate", method: :patch %></p>
       <% else %>
         <p>Inactive</p>
       <% end %>
