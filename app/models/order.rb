@@ -18,4 +18,10 @@ class Order <ApplicationRecord
   def total_item_quantity
     item_orders.sum(:quantity)
   end
+
+  def status_to_packaged
+    if item_orders.where(status: "unfulfilled") == []
+      self.update(status: 1)
+    end
+  end
 end

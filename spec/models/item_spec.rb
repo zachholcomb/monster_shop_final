@@ -121,5 +121,12 @@ describe Item, type: :model do
       ItemOrder.create!(item: tire2, order: order1, price: tire.price, quantity: 1)
       expect(Item.least_purchased).to eq([dog_leash, tire2, dog_bowl, dog_ball, dog_bone])
     end
+
+    it '.return_stock' do
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      tire.return_stock(3)
+      expect(tire.inventory).to eq(15)
+    end
   end
 end

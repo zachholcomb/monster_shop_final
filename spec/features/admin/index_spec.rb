@@ -87,17 +87,9 @@ RSpec.describe "As an Admin,", type: :feature do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      # visit profile_orders_path(@user.id)
       visit "/profile/orders/#{@order1.id}"
 
       expect(page).to_not have_content("Cancel Order")
     end
   end 
-end 
-
-# As an admin user
-# When I log into my dashboard, "/admin"
-# Then I see any "packaged" orders ready to ship.
-# Next to each order I see a button to "ship" the order.
-# When I click that button for an order, the status of that order changes to "shipped"
-# And the user can no longer "cancel" the order.
+end
