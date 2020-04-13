@@ -56,5 +56,21 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to eq(["Denver","Hershey"])
     end
 
+    it 'pending_orders' do
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      user = User.create!(name: "Steve", address:"123 Main St.", city: "Fort Collins", state: "GA", zip: "66666", email: "chunky_lover@example.com", password: "123password")
+      order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user: user)
+      order_2 = Order.create!(name: 'Brian', address: '123 Brian Ave', city: 'Denver', state: 'CO', zip: 17033, user: user)
+      order_3 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user: user, status: 1)
+      order_4 = Order.create!(name: 'Brian', address: '123 Brian Ave', city: 'Denver', state: 'CO', zip: 17033, user: user, status: 2)
+      order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
+      order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      order_3.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
+      order_4.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      
+      expect(@meg.pending_orders).to eq([order_2])
+      expect(dog_shop.pending_orders).to eq([order_1])
+    end
   end
 end
