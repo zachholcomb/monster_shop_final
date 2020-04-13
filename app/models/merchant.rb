@@ -1,6 +1,7 @@
 class Merchant <ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :item_orders, through: :items
+  has_many :orders, through: :item_orders
   has_many :merchant_employees, dependent: :destroy
   has_many :users, through: :merchant_employees
 
@@ -28,7 +29,7 @@ class Merchant <ApplicationRecord
   end
 
   def pending_orders
-    binding.pry
+    orders.distinct.where(status: 0)
   end
 
 end
