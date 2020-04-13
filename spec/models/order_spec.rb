@@ -43,6 +43,18 @@ describe Order, type: :model do
     it 'total_item_quantity' do
       expect(@order_1.total_item_quantity).to eq(5)
     end
+    
+    it 'status_to_packaged' do
+      order_2 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user: @user)
+
+      order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: "fulfilled")
+      order_2.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "fulfilled")
+
+      expect(order_2.status).to eq("Pending")
+      
+      order_2.status_to_packaged
+      expect(order_2.status).to eq("Packaged")
+    end
   end
 
   describe "class methods" do 
