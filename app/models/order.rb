@@ -21,7 +21,7 @@ class Order <ApplicationRecord
 
   def status_to_packaged
     if item_orders.where(status: "unfulfilled") == []
-      self.status = 1
+      self.update(status: 1)
     end
   end
 end
