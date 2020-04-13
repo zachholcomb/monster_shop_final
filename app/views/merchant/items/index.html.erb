@@ -12,6 +12,9 @@
       <% else %>
         <p>Inactive <%= button_to 'Activate', "/merchant/items/#{item.id}?type=activate", method: :patch %></p>
       <% end %>
+      <% if item.no_orders? %>
+        <p>Active <%= button_to 'Delete', "/merchant/items/#{item.id}", method: :delete %></p>
+      <% end %>
     </section>
     <% end %>
 </section>
