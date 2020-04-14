@@ -17,7 +17,7 @@
        <td><%= order.status %></td>
        <td>
         <%if order.status == "Packaged" %>
-          <%= link_to "Ship this Order", admin_orders_path(order_id: order.id), method: :patch %>
+          <%= link_to "Ship this Order", admin_order_path(order.id), method: :patch %>
         <% end %>
       </td>
       </tr>

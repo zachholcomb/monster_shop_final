@@ -1,0 +1,31 @@
+<h1>Admin Merchant Dashboard</h1>
+
+<table>
+  <tr>
+    <td>Merchant Name</td>
+    <td>Location</td>
+    <td>Account Status</td>
+    <td>Controls</td>
+  </tr>
+
+  <% @merchants.each do |merchant| %>
+    <tr>
+      <section id="merchant-<%= merchant.id %>">
+        <td><%= link_to "#{merchant.name}", admin_merchant_path(merchant.id) %></td>
+        <td><%= merchant.city%>, <%= merchant.state %></td>
+        <td>
+          <% if merchant.enabled? %>
+          Enabled
+          <% else %>
+          Disabled 
+          <% end %>
+        </td>
+        <td>
+          <% if merchant.enabled? %>
+            <%= link_to 'Disable Merchant', admin_merchant_path(merchant.id), method: :patch %>
+          <% end %>
+        </td>
+       </section>
+    </tr> 
+  <% end %>
+</table>

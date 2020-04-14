@@ -72,5 +72,14 @@ describe Merchant, type: :model do
       expect(@meg.pending_orders).to eq([order_2])
       expect(dog_shop.pending_orders).to eq([order_1])
     end
+
+    it "deactivate_items" do
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", active?: true, inventory: 32)
+      
+      dog_shop.deactivate_items
+      
+      expect(pull_toy.active?).to eq(false)
+    end
   end
 end
