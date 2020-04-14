@@ -32,4 +32,8 @@ class Merchant <ApplicationRecord
     orders.distinct.where(status: 0)
   end
 
+  def deactivate_items
+    items.update(active?: false)
+  end
+
 end
