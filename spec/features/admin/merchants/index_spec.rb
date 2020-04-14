@@ -57,7 +57,7 @@ RSpec.describe "As an admin,", type: :feature do
       end
     end 
 
-    it "then I see a 'enable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account enabled, flash message, and '/merchants/:id/items show active."      
+    it "then I see a 'enable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account enabled, flash message, and '/merchants/:id/items show active." do    
       visit admin_merchants_path 
       
       within "#merchant-#{@candy_shop.id}" do 
