@@ -11,6 +11,10 @@ class Order <ApplicationRecord
     item_orders.sum('price * quantity')
   end
 
+  def merchant_grandtotal(id)
+    items.where(merchant_id: id).sum('items.price * quantity')
+  end
+
   def self.sort_status
     self.all.order("status = 1 DESC, status = 0 DESC, status = 2 DESC, status = 3 DESC")
   end

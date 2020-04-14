@@ -40,6 +40,11 @@ describe Order, type: :model do
       expect(@order_1.grandtotal).to eq(230)
     end
 
+    it 'merchant_grandtotal' do
+      expect(@order_1.merchant_grandtotal(@meg.id)).to eq(200)
+      expect(@order_1.merchant_grandtotal(@brian.id)).to eq(30)
+    end
+
     it 'total_item_quantity' do
       expect(@order_1.total_item_quantity).to eq(5)
     end
@@ -60,7 +65,7 @@ describe Order, type: :model do
       expect(@order_1.merchant_order_items_count(@meg.id)).to eq(2)
       expect(@order_1.merchant_order_items_count(@brian.id)).to eq(3)
     end
-    
+
   end
 
   describe "class methods" do
