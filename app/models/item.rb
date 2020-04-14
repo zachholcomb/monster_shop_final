@@ -58,4 +58,8 @@ class Item <ApplicationRecord
   def return_stock(amount)
     self.inventory += amount
   end
+
+  def sell_stock(amount)
+    self.inventory -= amount
+  end
 end
