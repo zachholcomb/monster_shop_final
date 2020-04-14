@@ -1,8 +1,8 @@
-class Merchant::DashboardController < ApplicationController
+class Merchant::OrdersController < ApplicationController
   before_action :require_merchant
 
   def show
-    @merchant = current_user.merchants.first
+    @order = Order.find(params[:id])
   end
 
   private
