@@ -14,10 +14,17 @@ class Merchant::ItemsController < ApplicationController
     @merchant = find_merchant_from_user
   end
 
-  def update 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
     merchant = find_merchant_from_user
-    change_item_status(merchant)
-    redirect_to '/merchant/items'
+    if params[:type]
+      change_item_status(merchant)
+    else 
+      update_item
+    end
   end
 
   def destroy
@@ -37,6 +44,17 @@ class Merchant::ItemsController < ApplicationController
     merchant.items.find(params[:id])
   end
 
+  def update_item
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    if @item.save
+      redirect_to '/merchant/items'
+    else
+      flash[:notice] = @item.errors.full_messages.to_sentence
+      redirect_to "/merchant/items/#{@item.id}/edit"
+    end
+  end
+
   def change_item_status(merchant)
     if params[:type] == 'deactivate'
       find_item(merchant).update(active?: false)
@@ -45,6 +63,7 @@ class Merchant::ItemsController < ApplicationController
       find_item(merchant).update(active?: true)
       flash[:notice] = "#{find_item(merchant).name} is now for sale!"
     end
+    redirect_to '/merchant/items'
   end
 
   def find_merchant_from_user
