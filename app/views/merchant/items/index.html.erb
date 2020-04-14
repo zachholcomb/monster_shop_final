@@ -1,4 +1,5 @@
 <h1><%= @merchant.name %> Items</h1>
+<%= link_to 'Add New Item', '/merchant/items/new' %>
 <section class="grid-container">
   <% @merchant.items.each do |item| %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
@@ -13,7 +14,7 @@
         <p>Inactive <%= button_to 'Activate', "/merchant/items/#{item.id}?type=activate", method: :patch %></p>
       <% end %>
       <% if item.no_orders? %>
-        <p>Active <%= button_to 'Delete', "/merchant/items/#{item.id}", method: :delete %></p>
+        <p><%= button_to 'Delete', "/merchant/items/#{item.id}", method: :delete %></p>
       <% end %>
     </section>
     <% end %>
