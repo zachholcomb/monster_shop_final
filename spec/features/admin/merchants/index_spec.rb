@@ -19,7 +19,7 @@ RSpec.describe "As an admin,", type: :feature do
       @tootsie_roll = @candy_shop.items.create(name: "Tootsie Roll", description: "Brown chocolate log", price: 40, image: "https://upload.wikimedia.org/wikipedia/commons/2/20/Tootsie-Roll-Log-Large.jpg", inventory: 17, active?: false)    
     end 
     
-    it "then I see a 'disable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account disabled and flash message." do 
+    it "then I see a 'disable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account disabled, flash message, and '/merchants/:id/items show inactive." do 
       visit admin_merchants_path 
 
       within "#merchant-#{@bike_shop.id}" do 
@@ -57,7 +57,7 @@ RSpec.describe "As an admin,", type: :feature do
       end
     end 
 
-    it "then I see a 'disable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account disabled and flash message." do 
+    it "then I see a 'enable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account enabled, flash message, and '/merchants/:id/items show active."      
       visit admin_merchants_path 
       
       within "#merchant-#{@candy_shop.id}" do 
