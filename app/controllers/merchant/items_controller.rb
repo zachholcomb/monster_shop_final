@@ -2,11 +2,12 @@ class Merchant::ItemsController < ApplicationController
   before_action :require_merchant
 
   def new
+    @item = Item.new
   end
   
   def create
-    item = find_merchant_from_user.items.create(item_params)
-    item_check_creation(item)
+    @item = find_merchant_from_user.items.create(item_params)
+    item_check_creation(@item)
   end
 
   def index

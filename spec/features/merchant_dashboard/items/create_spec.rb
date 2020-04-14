@@ -162,7 +162,7 @@ RSpec.describe 'As a merchant employee when I visit my items page' do
     expect(page).to have_content("Price must be greater than 0")
   end
 
-  it "I can only create items where the inventory is greater than 0" do
+  it "I can only create items where the inventory is greater than 0 but the other information remains populated" do
     meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     tire = meg.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     pull_toy = meg.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
@@ -188,5 +188,8 @@ RSpec.describe 'As a merchant employee when I visit my items page' do
     click_button("Create Item")
    
     expect(page).to have_content("Inventory must be greater than 0")
+    expect(find_field(:Description).value).to have_content("It'll grind your gears!")
+    expect(find_field(:Name).value).to have_content("Bike Chain")
+    expect(find_field(:Price).value).to have_content(100)
   end
 end
