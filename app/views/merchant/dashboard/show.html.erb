@@ -2,5 +2,11 @@
 <h2><%= @merchant.name %></h2>
 <p><%= @merchant.address %>
 <p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %>
-<h2>Orders</h2>
 <h2><%= link_to "Merchant Items", "/merchant/items" %></h2>
+<h2>Orders</h2>
+<% @merchant.pending_orders.each do |order| %>
+  <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %>
+  <p>Date Created: <%= order.created_at %>
+  <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %>
+  <p>Total Merchant Items Value: <%= order.merchant_grandtotal(@merchant.id) %>
+<% end %>

@@ -2,7 +2,7 @@ class Merchant::DashboardController < ApplicationController
   before_action :require_merchant
 
   def show
-    @merchant = current_user.merchants[0]
+    @merchant = current_user.merchants.first
   end
 
   private
