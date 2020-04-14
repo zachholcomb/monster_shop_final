@@ -1,6 +1,14 @@
 class Merchant::ItemsController < ApplicationController
   before_action :require_merchant
 
+  def new
+  end
+  
+  def create
+    item = find_merchant_from_user.items.create(item_params)
+    item_check_creation(item)
+  end
+
   def index
     @merchant = find_merchant_from_user
   end
@@ -19,6 +27,10 @@ class Merchant::ItemsController < ApplicationController
   end
 
   private
+
+  def item_params
+    params.permit(:name, :description, :price, :image, :inventory)
+  end
   
   def find_item(merchant)
     merchant.items.find(params[:id])
@@ -36,6 +48,16 @@ class Merchant::ItemsController < ApplicationController
 
   def find_merchant_from_user
     current_user.merchants[0]
+  end
+
+  def item_check_creation(item)
+     if item.save
+      flash[:notice] = "Your item was saved!"
+      redirect_to '/merchant/items'
+    else
+      flash[:notice] = item.errors.full_messages.to_sentence
+      render :new
+    end
   end
 
   def require_merchant
