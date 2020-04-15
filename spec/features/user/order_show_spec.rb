@@ -69,8 +69,8 @@ RSpec.describe "As a registered user when I visit my Profile Orders page" do
     visit "/profile/orders/#{order_1.id}"
 
     expect(page).to have_content("Order #{order_1.id} Info")
-    expect(page).to have_content("Date Placed: #{order_1.created_at}")
-    expect(page).to have_content("Date Last Updated: #{order_1.updated_at}")
+    expect(page).to have_content("Date Placed: #{order_1.created_at.to_date}")
+    expect(page).to have_content("Date Last Updated: #{order_1.updated_at.to_date}")
     expect(page).to have_content("Status: #{order_1.status}")
     expect(page).to have_content("Total Item Quantity: #{order_1.total_item_quantity}")
     expect(page).to have_content("Total: $360.00")
