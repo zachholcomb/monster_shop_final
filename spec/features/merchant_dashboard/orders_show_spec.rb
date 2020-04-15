@@ -45,7 +45,7 @@ RSpec.describe "as a merchant employee, when i visit my merchant dashboard", typ
       expect(current_path).to eq("/merchant/dashboard")
       
       expect(page).to have_content("Order ID: #{order4.id}")
-      expect(page).to have_content("Date Created: #{order4.created_at}")
+      expect(page).to have_content("Date Created: #{order4.created_at.to_date}")
       expect(page).to have_content("Merchant Items: #{order4.merchant_order_items_count(dog_shop.id)}")
       expect(page).to have_content("Total Merchant Items Value: #{order4.merchant_grandtotal(dog_shop.id)}")
       expect(page).to have_no_content("Order ID: #{order0.id}")
