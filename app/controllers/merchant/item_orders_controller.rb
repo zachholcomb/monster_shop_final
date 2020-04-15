@@ -11,6 +11,11 @@ class Merchant::ItemOrdersController < ApplicationController
     new_inventory = item_order.item.sell_stock(item_order.quantity)
     item_order.update(status: 1)
     item_order.item.update(inventory: new_inventory)
+    order_status_to_packaged(item_order)
     flash[:notice] = "#{item_order.item.name} was succesfully fulfilled!"
+  end
+
+  def order_status_to_packaged(item_order)
+    item_order.order.order_status_to_packaged
   end
 end
