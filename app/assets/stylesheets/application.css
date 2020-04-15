@@ -81,7 +81,7 @@ section[id*='review'] {
    background-color: #002244;
  }
 
- .topnav a {
+ .topnav a, span {
    float: left;
    color: #f2f2f2;
    text-align: center;
