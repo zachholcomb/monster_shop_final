@@ -17,15 +17,17 @@
           <% if merchant.enabled? %>
           Enabled
           <% else %>
-          Disabled 
+          Disabled
           <% end %>
         </td>
         <td>
           <% if merchant.enabled? %>
             <%= link_to 'Disable Merchant', admin_merchant_path(merchant.id), method: :patch %>
+          <% else %>
+            <%= link_to 'Enable Merchant', admin_merchant_path(merchant.id), method: :patch %>
           <% end %>
         </td>
        </section>
-    </tr> 
+    </tr>
   <% end %>
 </table>
