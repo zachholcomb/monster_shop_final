@@ -22,7 +22,7 @@
         <p><%= link_to "Delete Item", "/items/#{@item.id}", method: :delete if @item.no_orders?%></p>
         <p><%= link_to "Edit Item", "/items/#{@item.id}/edit" %></p>
       <% end %>
-      <% if !current_admin? %>
+      <% if !current_admin? && @item.inventory > 0 %>
         <%= button_to "Add To Cart", "/cart/#{@item.id}", method: :post %>
       <% end %>
     </section>
