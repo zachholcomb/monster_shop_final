@@ -16,6 +16,6 @@ class Merchant::ItemOrdersController < ApplicationController
   end
 
   def order_status_to_packaged(item_order)
-    item_order.order.order_status_to_packaged
+    item_order.order.status_to_packaged
   end
 end
