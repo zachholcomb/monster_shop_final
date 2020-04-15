@@ -29,7 +29,7 @@ tire2 = bike_shop.items.create(name: "Goodyear", description: "They're good!", p
 pedal = bike_shop.items.create(name: "Bike Pedal", description: "It's a bike pedal.", price: 75, image: "https://imgaz2.staticbg.com/thumb/large/oaupload/ser1/banggood/images/C0/13/5b830fee-2941-464d-9c06-bd4c5dc6c1b8.jpg", inventory: 10)
 
 #dog_shop items
-pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "https://media.hardwarestore.com/catalog/product/cache/75eed2686e01eb22cb4050b2f40ddf97/1/2/124988_front500_p01.jpg", inventory: 32)
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 dog_bowl = dog_shop.items.create(name: "Dog Bowl", description: "Great dog bowl!", price: 7, image: "https://www.talltailsdog.com/pub/media/catalog/product/cache/a0f79b354624f8eb0e90cc12a21406d2/u/n/untitled-6.jpg", inventory: 32)
 dog_ball = dog_shop.items.create(name: "Dog Ball", description: "Awesome dog ball!", price: 5, image: "https://img.chewy.com/is/image/catalog/59155_MAIN._AC_SL1500_V1518033665_.jpg", inventory: 20)
