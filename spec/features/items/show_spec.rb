@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'item show page', type: :feature do
   before(:each) do
+    @admin = User.create!(name: "Jordan Sewell", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "chunky_admin@example.com", password: "123password", role: 2)
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
   end
   it 'shows item info' do
@@ -47,5 +49,11 @@ RSpec.describe 'item show page', type: :feature do
       expect(page).to_not have_content("Bottom 3 Reviews")
       expect(page).to_not have_content("All Reviews")
     end
+  end
+
+  it "it prevents admin from seeing Add To Cart link." do
+    visit "/items/#{@chain.id}"
+
+    expect(page).to_not have_content("Add To Cart")
   end
 end
