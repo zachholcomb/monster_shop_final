@@ -91,19 +91,19 @@ RSpec.describe "Items Index Page" do
       visit "/items"
       within '#item-stats' do
         within "#most-popular" do
-          expect(page.all('li')[0]).to have_content('Gatorskins: 10')
-          expect(page.all('li')[1]).to have_content('Pull Toy: 7')
-          expect(page.all('li')[2]).to have_content('Dog Bone: 4')
-          expect(page.all('li')[3]).to have_content('Dog Ball: 3')
-          expect(page.all('li')[4]).to have_content('Dog Bowl: 2')
+          expect(page).to have_content('1. Gatorskins: 10')
+          expect(page).to have_content('2. Pull Toy: 7')
+          expect(page).to have_content('3. Dog Bone: 4')
+          expect(page).to have_content('4. Dog Ball: 3')
+          expect(page).to have_content('5. Dog Bowl: 2')
         end
 
         within "#least-popular" do
-          expect(page.all('li')[0]).to have_content('Dog Leash: 0')
-          expect(page.all('li')[1]).to have_content('Goodyear: 1')
-          expect(page.all('li')[2]).to have_content('Dog Bowl: 2')
-          expect(page.all('li')[3]).to have_content('Dog Ball: 3')
-          expect(page.all('li')[4]).to have_content('Dog Bone: 4')
+          expect(page).to have_content('1. Dog Leash: 0')
+          expect(page).to have_content('2. Goodyear: 1')
+          expect(page).to have_content('3. Dog Bowl: 2')
+          expect(page).to have_content('4. Dog Ball: 3')
+          expect(page).to have_content('5. Dog Bone: 4')
         end
       end
     end
