@@ -121,7 +121,7 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     fill_in :Name, with: "Chain"
     fill_in :Description, with: ""
     fill_in :Price, with: 0
-    fill_in :Inventory, with: 0
+    fill_in :Inventory, with: -1
     click_button 'Submit Changes'
 
     expect(find_field(:Description).value).to have_content(tire.description)
@@ -130,6 +130,6 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     expect(find_field(:Image).value).to have_content(tire.image)
     expect(find_field(:Inventory).value).to have_content(tire.inventory)
 
-    expect(page).to have_content("Description can't be blank, Price must be greater than 0, and Inventory must be greater than 0")
+    expect(page).to have_content("Description can't be blank, Price must be greater than 0, and Inventory must be greater than or equal to 0")
   end
 end
