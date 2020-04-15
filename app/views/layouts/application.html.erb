@@ -28,8 +28,8 @@
         <% elsif current_user.admin? %>
           <%= link_to "Admin Dashboard", "/admin/dashboard" %>
           <%= link_to "See all Users", "/admin/users" %>
-        <span>Logged in as <%= current_user.name %></span>
         <% end %>
+        <span>Logged in as <%= current_user.name %></span>
       <% else %>
         <%= link_to "Register", "/register" %>
         <%= link_to "Login", "/login" %>
