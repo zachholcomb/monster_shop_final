@@ -41,6 +41,7 @@
       <th>Subtotal</th>
     </tr>
     <% @order.item_orders.each do |item_order| %>
+    <% if item_order.item.merchant_id == current_user.merchants.first.id%>
     <tr>
       <section id="item-<%=item_order.item_id %>">
         <td>
@@ -64,8 +65,18 @@
         <td>
           <p><%= number_to_currency(item_order.subtotal) %></p>
         </td>
+        <td>
+        <% if item_order.status == "unfulfilled" && item_order.quantity <= item_order.item.inventory%>
+            <p><%= button_to 'Fulfill', "/merchant/item_orders/#{item_order.id}?type=fulfill", method: :patch %></p>
+          <% elsif item_order.status == "fulfilled" %>
+            <p><%= item_order.status.capitalize%></p>
+          <% else %>
+            <p>You do not have enough stock to fulfill this order!</p>
+          <% end %>
+        </td>
       </section>
     </tr>
+    <%end%>
     <% end %>
   </table>
 
@@ -82,8 +93,4 @@
     <p>Date Placed: <%= @order.created_at %></p>
     <p>Date Last Updated: <%= @order.updated_at %></p>
   </section>
-  <section id="cancel_order">
-    <% if @order.status != "Shipped" %>
-      <p><%= link_to "Cancel Order", "/profile/orders/#{@order.id}?type=cancel", method: :patch %></p>
-    <% end %>
-  </section>
+ 

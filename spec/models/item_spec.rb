@@ -58,8 +58,16 @@ describe Item, type: :model do
       order2 = Order.create(name: 'Steve', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', user: user)
       ItemOrder.create!(item: tire, order: order1, price: tire.price, quantity: 5)
       ItemOrder.create!(item: tire, order: order2, price: tire.price, quantity: 5)
-
+      
       expect(tire.quantity_purchased).to eq(10)
+    end
+    
+    it 'sell_stock' do
+      user = User.create!(name: "Steve", address:"123 Main St.", city: "Fort Collins", state: "GA", zip: "66666", email: "chunky_lover@example.com", password: "123password")
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      tire.sell_stock(6)
+      expect(tire.inventory).to eq(6)
     end
   end
 
