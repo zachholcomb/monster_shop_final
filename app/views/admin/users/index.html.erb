@@ -1,0 +1,18 @@
+<h1>All Users</h1>
+
+<table class = "all-users">
+  <tr>
+    <th>User Name</th>
+    <th>Date Registered</th>
+    <th>Role</th>
+  </tr>
+  <% @users.each do |user| %>
+    <section id="user-<%= user.id %>">
+      <tr>
+       <td><%= link_to user.name, "/admin/users/#{user.id}" %></td>
+       <td><%= user.created_at.to_date %></td>
+       <td><%= user.role %></td>
+      </tr>
+    </section>
+  <% end %>
+</table>

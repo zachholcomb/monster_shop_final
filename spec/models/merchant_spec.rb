@@ -68,7 +68,7 @@ describe Merchant, type: :model do
       order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       order_3.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
       order_4.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      
+
       expect(@meg.pending_orders).to eq([order_2])
       expect(dog_shop.pending_orders).to eq([order_1])
     end
@@ -80,7 +80,7 @@ describe Merchant, type: :model do
       dog_bowl = dog_shop.items.create(name: "Dog Bowl", description: "Great dog bowl!", price: 7, image: "https://www.talltailsdog.com/pub/media/catalog/product/cache/a0f79b354624f8eb0e90cc12a21406d2/u/n/untitled-6.jpg", active?: true, inventory: 32)
 
       dog_shop.deactivate_items
-      
+
       expect(pull_toy.active?).to eq(false)
       expect(dog_bone.active?).to eq(false)
       expect(dog_bowl.active?).to eq(false)
@@ -98,5 +98,15 @@ describe Merchant, type: :model do
       expect(dog_bone.active?).to eq(true)
       expect(dog_bowl.active?).to eq(true)
     end
+
+    it "activate_items" do
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", active?: false, inventory: 32)
+
+      dog_shop.activate_items
+
+      expect(pull_toy.active?).to eq(true)
+    end
+
   end
 end
