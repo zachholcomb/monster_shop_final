@@ -184,10 +184,10 @@ RSpec.describe 'As a merchant employee when I visit my items page' do
     fill_in :Description, with: "It'll grind your gears!"
     fill_in :Image, with: ""
     fill_in :Price, with: 100
-    fill_in :Inventory, with: 0
+    fill_in :Inventory, with: -1
     click_button("Create Item")
    
-    expect(page).to have_content("Inventory must be greater than 0")
+    expect(page).to have_content("Inventory must be greater than or equal to 0")
     expect(find_field(:Description).value).to have_content("It'll grind your gears!")
     expect(find_field(:Name).value).to have_content("Bike Chain")
     expect(find_field(:Price).value).to have_content(100)
