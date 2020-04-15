@@ -39,5 +39,4 @@ class Merchant <ApplicationRecord
   def activate_items
     items.update(active?: true)
   end
-
 end
