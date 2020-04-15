@@ -56,55 +56,6 @@ RSpec.describe "As an admin,", type: :feature do
       end
     end
 
-    context "when a merchant is disabled i see a link to enable that merchant and when i click 'enable'" do
-      it "the merchant is enabled and i get a confirmation flash message and see the 'disable' button again" do
-
-        visit admin_merchants_path
-
-        within "#merchant-#{@bike_shop.id}" do
-          expect(page).to have_link("Disable Merchant")
-        end
-
-        within "#merchant-#{@dog_shop.id}" do
-          expect(page).to have_link("Disable Merchant")
-          click_on "Disable Merchant"
-        end
-
-        expect(current_path).to eq(admin_merchants_path)
-
-        within "#merchant-#{@dog_shop.id}" do
-          expect(page).to_not have_link("Disable Merchant")
-          expect(page).to have_link("Enable Merchant")
-        end
-
-        expect(page).to have_content("#{@dog_shop.name} is now disabled.")
-
-        within "#merchant-#{@dog_shop.id}" do
-          click_on "Enable Merchant"
-        end
-
-        expect(current_path).to eq(admin_merchants_path)
-        expect(page).to have_content("#{@dog_shop.name} is now enabled.")
-
-        visit "/merchants/#{@dog_shop.id}/items"
-
-        within "#item-#{@pull_toy.id}" do
-          expect(page).to have_content("Active")
-        end
-
-        within "#item-#{@dog_bone.id}" do
-          expect(page).to have_content("Active")
-        end
-
-        within "#item-#{@dog_ball.id}" do
-          expect(page).to have_content("Active")
-        end
-
-        within "#item-#{@dog_bowl.id}" do
-          expect(page).to have_content("Active")
-        end
-      end
-
     it "then I see a 'enable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account enabled, flash message, and '/merchants/:id/items show active." do    
       visit admin_merchants_path 
       
