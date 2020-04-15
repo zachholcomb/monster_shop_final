@@ -21,7 +21,6 @@
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <% end %>
       <% if current_user != nil %>
-        <span>Logged in as <%= current_user.name %></span>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Logout", "/logout", method: :delete %>
         <% if current_user.merchant? %>
@@ -29,6 +28,7 @@
         <% elsif current_user.admin? %>
           <%= link_to "Admin Dashboard", "/admin/dashboard" %>
           <%= link_to "See all Users", "/admin/users" %>
+        <span>Logged in as <%= current_user.name %></span>
         <% end %>
       <% else %>
         <%= link_to "Register", "/register" %>
