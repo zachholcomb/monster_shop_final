@@ -79,8 +79,8 @@
     <p>Status: <%= @order.status%></p>
   </section>
   <section id="datecreated">
-    <p>Date Placed: <%= @order.created_at%></p>
-    <p>Date Last Updated: <%= @order.updated_at%></p>
+    <p>Date Placed: <%= @order.created_at.to_date%></p>
+    <p>Date Last Updated: <%= @order.updated_at.to_date%></p>
   </section>
   <section id="cancel_order">
     <% if @order.status != "Shipped" %>
