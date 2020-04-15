@@ -32,5 +32,4 @@ class Order <ApplicationRecord
       self.update(status: 1)
     end
   end
-
 end
