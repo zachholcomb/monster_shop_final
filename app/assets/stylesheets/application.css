@@ -40,6 +40,19 @@ img{
 section[id*='review'] {
   background-color: #DCDCDC;
 }
+
+section[class*='form'] {
+  display: inline-block;
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 75%;
+}
+
+section[id*='login_nav'] {
+  float: right;
+}
+
 .list-reviews {
   display: grid;
   width: 50%;
@@ -63,6 +76,7 @@ section[id*='review'] {
   border-color: #002244;
  	text-align: center
  }
+
  .item-show-grid{
   width: 60%;
  	display: grid;
@@ -88,7 +102,8 @@ section[id*='review'] {
    padding: 14px 16px;
    text-decoration: none;
    font-size: 17px;
- }
+   font-family: "Marker Felt", fantasy;
+  }
 
  .topnav a:hover {
    background-color: #17BEBB;
