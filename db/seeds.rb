@@ -17,15 +17,18 @@ dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', c
 candy_shop = Merchant.create(name: "50 Cent's Candy Shop", address: '512 Electric Avenue', city: 'Silverthorne', state: 'CO', zip: 81103, enabled?: false)
 
 #users
-user1 = User.create(name: "Jordan Regular", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "user@example.com", password: "password_regular")
-user2 = dog_shop.users.create(name: "Jordan Employee", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "merchant@example.com", password: "password_merchant", role: 1)
-user3 = User.create(name: "Jordan Admin", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "admin@example.com", password: "password_admin", role: 2)
+regular = User.create(name: "Regular User", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "user@example.com", password: "password_regular")
+test_merchant = dog_shop.users.create(name: "Dog Shop Employee", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "merchant@example.com", password: "password_merchant", role: 1)
+dog_merchant = dog_shop.users.create(name: "Dog Shop Employee", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "dog_merchant@example.com", password: "1234", role: 1)
+bike_merchant = dog_shop.users.create(name: "Bike Shop Employee", address:"123 Real St.", city: "Boudler", state: "CO", zip: "80311", email: "bike_merchant@example.com", password: "1234", role: 1)
+candy_merchant = dog_shop.users.create(name: "Candy Shop Employee", address:"311 Realfake St.", city: "Longmont", state: "CO", zip: "80001", email: "candy_merchant@example.com", password: "1234", role: 1)
+admin = User.create(name: "Admin User", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "admin@example.com", password: "password_admin", role: 2)
 customer1 = User.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', email: "user1@example.com", password: "user1")
 customer2 = User.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', email: "user2@example.com", password: "user2")
 
 #bike_shop items
 tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-tire2 = bike_shop.items.create(name: "Goodyear", description: "They're good!", price: 150, image: "https://www.adventurecycling.org/sites/default/assets/Image/AdventureCyclist/OnlineFeatures/2018/Goodyear%20Tires/LoganVB_9829.jpg", inventory: 5)
+tire2 = bike_shop.items.create(name: "Goodyear", description: "They're good for a year!", price: 150, image: "https://www.adventurecycling.org/sites/default/assets/Image/AdventureCyclist/OnlineFeatures/2018/Goodyear%20Tires/LoganVB_9829.jpg", inventory: 5)
 pedal = bike_shop.items.create(name: "Bike Pedal", description: "It's a bike pedal.", price: 75, image: "https://imgaz2.staticbg.com/thumb/large/oaupload/ser1/banggood/images/C0/13/5b830fee-2941-464d-9c06-bd4c5dc6c1b8.jpg", inventory: 10)
 
 #dog_shop items

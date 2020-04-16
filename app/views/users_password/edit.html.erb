@@ -1,9 +1,10 @@
 <h2>Edit Password</h2>
-
-<%= form_tag "/profile/password", method: :patch do %>
-  <%= label_tag :password %>
-  <%= password_field_tag :password %>
-  <%= label_tag :password_confirmation %>
-  <%= password_field_tag :password_confirmation %>
-  <%= submit_tag "Update Password" %>
-<% end %>
+<section class="form">
+  <%= form_tag "/profile/password", method: :patch do %>
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+    <%= label_tag :password_confirmation %>
+    <%= password_field_tag :password_confirmation %>
+    <%= submit_tag "Update Password" %>
+  <% end %>
+</section>

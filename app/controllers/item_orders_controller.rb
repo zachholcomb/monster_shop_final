@@ -10,7 +10,7 @@ class ItemOrdersController < ApplicationController
       order.update(status: 3)
       return_to_inventory(order)
       unfulfill_item_orders(order)
-      flash[:alert] = "Order #{order.id} has been cancelled."
+      flash[:success] = "Order #{order.id} has been cancelled."
     end
     redirect_to "/profile"
   end

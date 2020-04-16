@@ -7,6 +7,7 @@
     <th>Subtotal</th>
     <th>Sold By</th>
     <th>Inventory</th>
+    <th>Current Stock</th>
   </tr>
   <% cart.items.each do |item, quantity| %>
     <tr id='order-item-<%= item.id%>'>
@@ -20,8 +21,8 @@
   <% end %>
 </table>
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
-<center>
-  <h2>Shipping Info:</h2>
+<h1>Shipping Information</h1>
+<section class="form">
   <%= form_tag "/orders", method: :create do %>
     <%= label_tag :name %>
     <%= text_field_tag :name %>
@@ -40,4 +41,4 @@
 
     <%= submit_tag 'Create Order' %>
   <% end %>
-</center>
+</section>

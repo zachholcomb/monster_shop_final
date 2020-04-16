@@ -54,7 +54,7 @@ class OrdersController <ApplicationController
   end
 
   def reject_order
-    flash[:notice] = "Please complete address form to create an order."
+    flash[:error] = "Please complete address form to create an order."
     render :new
   end
 end
