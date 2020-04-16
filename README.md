@@ -54,7 +54,6 @@ If a regular user clicks on their order ID, the order show page displays all of 
 If a regular user would like to proceed with their finalized order, they have the ability to:
 * go to their cart, and see a checkout option that, once clicked, will empty their cart.
 
-TIP:  
 
 ### Merchant User
 A **merchant user** of this website is essentially and employee that belongs to an associated storefront.  
