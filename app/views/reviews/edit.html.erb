@@ -1,5 +1,5 @@
-<h1 align= "center">Edit Review for <%= link_to @review.item.name, "/items/#{@review.item.id}" %></h1>
-<center>
+<h1>Edit Review for <%= link_to @review.item.name, "/items/#{@review.item.id}" %></h1>
+<section class="form">
   <%= form_tag "/reviews/#{@review.id}", method: :patch do |f| %>
 
     <%= text_field_tag :title, "#{@review.title}" %>
@@ -10,4 +10,4 @@
 
     <%= submit_tag 'Update Review' %>
   <% end %>
-</center>
+</section>

@@ -1,5 +1,5 @@
 <h1>Edit <%=link_to @merchant.name, "/merchants/#{@merchant.id}" %></h1>
-<center>
+<section class="form">
   <%= form_tag "/merchants/#{@merchant.id}", method: :patch do %>
     <%= label_tag :name %>
     <%= text_field_tag :name, "#{@merchant.name}"%>
@@ -18,4 +18,4 @@
 
     <%= submit_tag 'Update Merchant' %>
   <% end %>
-</center>
+</section>
