@@ -74,4 +74,33 @@ RSpec.describe "As a registered user,", type: :feature do
     expect(page).to have_content("Password and password confirmation do not match!")
     expect(page).to have_current_path("/profile/password/edit")
   end
+
+  it "I cannot update my password without any fields" do
+    user = User.create!(name: "Steve",
+                address:"123 Main St.",
+                city: "Fort Collins",
+                state: "GA",
+                zip: "66666",
+                email: "chunky_lover@example.com",
+                password: "123password")
+
+    visit "/login"
+    fill_in :Email, with: user.email
+    fill_in :Password, with: user.password
+    click_button "Login"
+
+
+    visit '/profile'
+
+    click_on "Edit Password"
+
+    fill_in :Password, with: ""
+    fill_in :password_confirmation, with: ""
+
+    click_on "Update Password"
+    
+    expect(page).to have_content("Password can't be blank")
+    expect(page).to have_current_path("/profile/password/edit")
+  end
+
 end
