@@ -11,7 +11,11 @@
   <body>
     <nav class = "topnav">
       <%= link_to "Home", "/"%>
-      <%= link_to "All Items", "/items"%>
+      <% if current_admin? %>
+        <%= link_to "All Items", admin_items_path%>
+      <% else %>
+        <%= link_to "All Items", "/items"%>
+      <% end %>
       <% if !current_admin? %>
         <%= link_to "All Merchants", "/merchants"%>
       <% else %>
