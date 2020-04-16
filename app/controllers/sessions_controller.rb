@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      flash[:notice] = "You are already logged in!"
+      flash[:error] = "You are already logged in!"
       login_user(User.find(session[:user]))
     end
   end
@@ -10,10 +10,10 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user] = user.id
-      flash[:notice] = "You are now logged in!"
+      flash[:success] = "You are now logged in!"
       login_user(user)
     else
-      flash[:notice] = "You entered incorrect credentials."
+      flash[:error] = "You entered incorrect credentials."
       render :new
     end
   end
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   def destroy
     session.delete(:cart)
     session.delete(:user)
-    flash[:notice] = "You have been sucessfully logged out. Bye!"
+    flash[:success] = "You have been sucessfully logged out. Bye!"
     redirect_to "/"
   end
   private

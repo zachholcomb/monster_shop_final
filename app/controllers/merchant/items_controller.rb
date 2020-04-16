@@ -29,7 +29,7 @@ class Merchant::ItemsController < ApplicationController
 
   def destroy
     merchant = find_merchant_from_user
-    flash[:notice] = "#{find_item(merchant).name} was successfully deleted"
+    flash[:success] = "#{find_item(merchant).name} was successfully deleted!"
     find_item(merchant).delete
     redirect_to '/merchant/items'
   end
@@ -50,7 +50,7 @@ class Merchant::ItemsController < ApplicationController
     if @item.save
       redirect_to '/merchant/items'
     else
-      flash[:notice] = @item.errors.full_messages.to_sentence
+      flash[:error] = @item.errors.full_messages.to_sentence
       redirect_to "/merchant/items/#{@item.id}/edit"
     end
   end
@@ -58,10 +58,10 @@ class Merchant::ItemsController < ApplicationController
   def change_item_status(merchant)
     if params[:type] == 'deactivate'
       find_item(merchant).update(active?: false)
-      flash[:notice] = "#{find_item(merchant).name} is no longer for sale!"
+      flash[:success] = "#{find_item(merchant).name} is no longer for sale!"
     elsif params[:type] == 'activate'
       find_item(merchant).update(active?: true)
-      flash[:notice] = "#{find_item(merchant).name} is now for sale!"
+      flash[:success = "#{find_item(merchant).name} is now for sale!"
     end
     redirect_to '/merchant/items'
   end
@@ -72,10 +72,10 @@ class Merchant::ItemsController < ApplicationController
 
   def item_check_creation(item)
      if item.save
-      flash[:notice] = "Your item was saved!"
+      flash[:success] = "Your item was saved!"
       redirect_to '/merchant/items'
     else
-      flash[:notice] = item.errors.full_messages.to_sentence
+      flash[:error] = item.errors.full_messages.to_sentence
       render :new
     end
   end

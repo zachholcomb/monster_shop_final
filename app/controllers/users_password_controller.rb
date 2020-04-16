@@ -8,7 +8,7 @@ class UsersPasswordController < ApplicationController
     if params[:password] == params[:password_confirmation]
       update_password
     elsif
-      flash[:notice] = "Password and password confirmation do not match!"
+      flash[:error] = "Password and password confirmation do not match!"
       redirect_to '/profile/password/edit'
     end
   end
@@ -21,12 +21,12 @@ class UsersPasswordController < ApplicationController
 
   def update_password
     current_user.update(password: params[:password])
-    flash[:notice] = "Your password has been updated!"
+    flash[:success] = "Your password has been updated!"
     return redirect_to '/profile'
   end
 
   def blank_password_path
-    flash[:notice] = "Password can't be blank" 
+    flash[:error] = "Password can't be blank" 
     redirect_to '/profile/password/edit'
   end
 end
