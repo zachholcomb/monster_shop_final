@@ -82,7 +82,9 @@ Rails.application.routes.draw do
     get '/users/:user_id/orders', to: 'users_orders#index'
     get '/merchants', to: 'merchants#index'
     resources :orders, only: [:update]
-    resources :merchants
+    resources :merchants do
+      resources :items
+    end
   end
 
 end
