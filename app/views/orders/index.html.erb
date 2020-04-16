@@ -3,9 +3,9 @@
   <section id="order-<%= order.id %>">
   <h3><%= link_to "Order - #{order.id}", "/profile/orders/#{order.id}" %></h3>
   <p>Order Status: <%= order.status %></p>
-  <p>Date Placed: <%= order.created_at %></p>
-  <p>Date Last Updated: <%= order.updated_at %></p>
+  <p>Date Placed: <%= order.created_at.to_date %></p>
+  <p>Date Last Updated: <%= order.updated_at.to_date %></p>
   <p>Item Quantity: <%= order.total_item_quantity %></p>
-  <p>Grand Total: <%= order.grandtotal %></p>
+  <p>Grand Total: <%= number_to_currency(order.grandtotal) %></p>
   </section>
 <% end %>

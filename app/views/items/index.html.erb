@@ -26,18 +26,14 @@
 <section id="item-stats">
   <section id="most-popular">
     <h3>Most Popular Items</h3>
-    <% @items.most_purchased.each do |item| %>
-      <ol> 
-        <li><%= item.name%>: <%= item.quantity_purchased %></li>
-      </ol>
+    <% @items.most_purchased.each_with_index do |item, index| %>
+        <p><%= (index + 1)%>. <%= item.name%>: <%= item.quantity_purchased %></p>
     <% end %>
   </section>
   <section id="least-popular">
     <h3>Least Popular Items</h3>
-    <% @items.least_purchased.each do |item| %>
-    <ol> 
-      <li><%= item.name%>: <%= item.quantity_purchased %></li>
-    </ol>
-  <% end %>
+    <% @items.least_purchased.each_with_index do |item, index| %>
+      <p><%= (index + 1)%>. <%= item.name%>: <%= item.quantity_purchased %></p>
+    <% end %>
   </section>
 </section>

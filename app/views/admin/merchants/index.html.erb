@@ -1,4 +1,7 @@
 <h1>Admin Merchant Dashboard</h1>
+<% if current_user.admin? %>
+  <p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
+<% end %>
 
 <table>
   <tr>

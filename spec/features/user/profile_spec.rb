@@ -111,19 +111,19 @@ RSpec.describe "As a registered user" do
       visit "/profile/orders"
       within("#order-#{order_1.id}") do
         expect(page).to have_content("Order - #{order_1.id}")
-        expect(page).to have_content("Date Placed: #{order_1.created_at}")
-        expect(page).to have_content("Date Last Updated: #{order_1.updated_at}")
+        expect(page).to have_content("Date Placed: #{order_1.created_at.to_date}")
+        expect(page).to have_content("Date Last Updated: #{order_1.updated_at.to_date}")
         expect(page).to have_content("Status: #{order_1.status}")
         expect(page).to have_content("Item Quantity: #{order_1.total_item_quantity}")
-        expect(page).to have_content("Grand Total: #{order_1.grandtotal}")
+        expect(page).to have_content("Grand Total: $360.00")
       end
       within("#order-#{order_2.id}") do
         expect(page).to have_content("Order - #{order_2.id}")
-        expect(page).to have_content("Date Placed: #{order_2.created_at}")
-        expect(page).to have_content("Date Last Updated: #{order_2.updated_at}")
+        expect(page).to have_content("Date Placed: #{order_2.created_at.to_date}")
+        expect(page).to have_content("Date Last Updated: #{order_2.updated_at.to_date}")
         expect(page).to have_content("Status: #{order_2.status}")
         expect(page).to have_content("Item Quantity: #{order_2.total_item_quantity}")
-        expect(page).to have_content("Grand Total: #{order_2.grandtotal}")
+        expect(page).to have_content("Grand Total: $300.00")
       end
     end
   end
