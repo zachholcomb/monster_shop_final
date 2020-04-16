@@ -1,6 +1,5 @@
 <h1>Create New Item</h1>
-
-<center>
+<section class="form">
   <%= form_tag "/merchant/items", method: :post do %>
   <%= label_tag :name, 'Name:' %>
   <%= text_field_tag :name, @item.name%>
@@ -19,4 +18,4 @@
 
   <%= submit_tag 'Create Item' %>
   <% end %>
-</center>
+</section>
