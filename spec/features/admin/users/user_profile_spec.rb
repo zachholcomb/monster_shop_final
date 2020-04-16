@@ -93,7 +93,24 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
 
     click_link "Edit Password"
 
+    expect(current_path).to eq("/admin/users/#{user2.id}/password/edit")
+
+    fill_in :Password, with: ""
+    fill_in :password_confirmation, with: ""
+    click_on "Update Password"
+
+    expect(current_path).to eq("/admin/users/#{user2.id}/password/edit")
+    expect(page).to have_content("Password can't be blank")
+
     fill_in :Password, with: "userpassword02"
+    fill_in :password_confirmation, with: "userpassword03"
+    click_on "Update Password"
+
+    expect(current_path).to eq("/admin/users/#{user2.id}/password/edit")
+    expect(page).to have_content("Password and password confirmation do not match!")
+
+    fill_in :Password, with: "userpassword02"
+    fill_in :password_confirmation, with: "userpassword02"
     click_on "Update Password"
 
     expect(current_path).to eq("/admin/users/#{user2.id}")
