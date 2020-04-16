@@ -6,12 +6,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:user] = @user.id
-      flash[:notice] = "You are successfully registered and logged in!"
-      redirect_to "/profile"
+      register_user(@user)
     else
-      flash[:notice] = @user.errors.full_messages.to_sentence
-      render :new
+     reload_register(@user)
     end
   end
 
@@ -41,5 +38,16 @@ class UsersController < ApplicationController
 
   def require_user
     render file: "/public/404" unless current_user
+  end
+
+  def register_user(user)
+    session[:user] = user.id
+    flash[:notice] = "You are successfully registered and logged in!"
+    redirect_to "/profile"
+  end
+
+  def reload_register(user)
+    flash[:notice] = user.errors.full_messages.to_sentence
+    render :new
   end
 end

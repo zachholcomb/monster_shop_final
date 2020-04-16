@@ -9,12 +9,10 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-      session[:user] = user.id
-      flash[:notice] = "You are now logged in!"
+      set_session(user)
       login_user(user)
     else
-      flash[:notice] = "You entered incorrect credentials."
-      render :new
+      reload_login
     end
   end
 
@@ -31,4 +29,15 @@ class SessionsController < ApplicationController
     return redirect_to '/merchant/dashboard' if user.merchant?
     redirect_to '/admin/dashboard'
   end
+
+  def set_session(user)
+    session[:user] = user.id
+    flash[:notice] = "You are now logged in!"
+  end
+
+  def reload_login
+    flash[:notice] = "You entered incorrect credentials."
+    render :new
+  end
+  
 end
