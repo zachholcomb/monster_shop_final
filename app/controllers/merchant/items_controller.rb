@@ -61,7 +61,7 @@ class Merchant::ItemsController < ApplicationController
       flash[:success] = "#{find_item(merchant).name} is no longer for sale!"
     elsif params[:type] == 'activate'
       find_item(merchant).update(active?: true)
-      flash[:success = "#{find_item(merchant).name} is now for sale!"
+      flash[:success] = "#{find_item(merchant).name} is now for sale!"
     end
     redirect_to '/merchant/items'
   end
