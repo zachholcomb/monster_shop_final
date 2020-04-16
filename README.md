@@ -96,6 +96,6 @@ Below is a diagram of this project's schema as well as the corresponding code:
 
 ### Contributors
  * **Jesse Gietzen** - https://github.com/elguapogordo
- * **Steven Meyers** - 
- * **Zach Holcomb** - 
+ * **Steven Meyers** - https://github.com/SMJ289
+ * **Zach Holcomb** - https://github.com/zachholcomb
  * **Jordan Sewell** - https://github.com/jrsewell400
