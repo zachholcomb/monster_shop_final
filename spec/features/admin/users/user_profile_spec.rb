@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "as an admin, when i visit a user profile page", type: :feature do
-  it "i see everything the user would see but no link to edit their profile" do
+  it "i have full access to that page including edit profile and password" do
 
     dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
     dog_bowl = dog_shop.items.create(name: "Dog Bowl", description: "Great dog bowl!", price: 7, image: "https://www.talltailsdog.com/pub/media/catalog/product/cache/a0f79b354624f8eb0e90cc12a21406d2/u/n/untitled-6.jpg", inventory: 32)
@@ -56,8 +56,8 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
     expect(page).to have_content("Email: #{user1.email}")
     expect(page).to_not have_content(user1.password)
     expect(page).to_not have_link("Orders for #{user1.name}")
-    expect(page).to_not have_link("Edit Password")
-    expect(page).to_not have_link("Edit My Profile")
+    expect(page).to have_link("Edit Password")
+    expect(page).to have_link("Edit Profile")
 
     visit "/admin/users/#{user2.id}"
 
@@ -69,8 +69,35 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
     expect(page).to have_content("Email: #{user2.email}")
     expect(page).to_not have_content(user2.password)
     expect(page).to have_link("Orders for #{user2.name}")
-    expect(page).to_not have_link("Edit Password")
-    expect(page).to_not have_link("Edit My Profile")
+    expect(page).to have_link("Edit Password")
+    expect(page).to have_link("Edit Profile")
+
+    click_link "Edit Profile"
+
+    expect(current_path).to eq("/admin/users/#{user2.id}/edit")
+    fill_in :Address, with: ""
+    fill_in :City, with: "Fort Worth"
+    click_on "Submit"
+
+    expect(page).to have_content("Address can't be blank")
+
+    fill_in :Address, with: "123 2nd St."
+    fill_in :City, with: "Fort Worth"
+    click_on "Submit"
+
+    expect(current_path).to eq("/admin/users/#{user2.id}")
+    expect(page).to have_content("Profile has been updated!")
+    expect(page).to have_content("123 2nd St.")
+    expect(page).to have_content("Fort Worth")
+    expect(page).to_not have_content("123 Main St.")
+
+    click_link "Edit Password"
+
+    fill_in :Password, with: "userpassword02"
+    click_on "Update Password"
+
+    expect(current_path).to eq("/admin/users/#{user2.id}")
+    expect(page).to have_content("Password has been updated!")
 
     click_link "Orders for #{user2.name}"
 
@@ -84,6 +111,7 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
       expect(page).to have_content("Item Quantity: #{order1.total_item_quantity}")
       expect(page).to have_content("Grand Total: #{order1.grandtotal}")
     end
+
     within("#order-#{order2.id}") do
       expect(page).to have_content("Order - #{order2.id}")
       expect(page).to have_content("Date Placed: #{order2.created_at}")
@@ -92,5 +120,6 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
       expect(page).to have_content("Item Quantity: #{order2.total_item_quantity}")
       expect(page).to have_content("Grand Total: #{order2.grandtotal}")
     end
+
   end
 end
