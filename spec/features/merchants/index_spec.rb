@@ -24,7 +24,7 @@ RSpec.describe 'merchant index page', type: :feature do
 
       click_on "New Merchant"
 
-      expect(current_path).to eq("/merchants/new")
+      expect(current_path).to eq("/admin/merchants/new")
     end
   end
 end

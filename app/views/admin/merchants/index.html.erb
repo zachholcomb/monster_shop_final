@@ -25,9 +25,9 @@
         </td>
         <td>
           <% if merchant.enabled? %>
-            <%= button_to 'Disable Merchant', admin_merchant_path(merchant.id), method: :patch %>
+            <%= button_to 'Disable Merchant', admin_merchant_path(merchant.id, type: :disable), method: :patch %>
           <% else %>
-            <%= button_to 'Enable Merchant', admin_merchant_path(merchant.id), method: :patch %>
+            <%= button_to 'Enable Merchant', admin_merchant_path(merchant.id, type: :enable), method: :patch %>
           <% end %>
         </td>
        </section>
