@@ -19,7 +19,7 @@ RSpec.describe "As an admin,", type: :feature do
     end 
     
     it "then I see a 'disable' button next to active mechants that, when clicked, returns me to admin merchant index where I see merchant account disabled, flash message, and '/merchants/:id/items show inactive." do 
-      visit admin_merchants_path 
+      visit "/admin/merchants"
 
       within "#merchant-#{@bike_shop.id}" do 
         expect(page).to have_button("Disable Merchant")
@@ -37,7 +37,7 @@ RSpec.describe "As an admin,", type: :feature do
       end
       expect(page).to have_content("#{@dog_shop.name} is now disabled.")
 
-      visit "/merchants/#{@dog_shop.id}/items"
+      visit "/admin/merchants/#{@dog_shop.id}/items"
 
       within "#item-#{@pull_toy.id}" do
         expect(page).to have_content("Inactive")
@@ -71,7 +71,7 @@ RSpec.describe "As an admin,", type: :feature do
       end
       expect(page).to have_content("#{@candy_shop.name} is now enabled.")
       
-      visit "/merchants/#{@candy_shop.id}/items"
+      visit "/admin/merchants/#{@candy_shop.id}/items"
 
       within "#item-#{@lollipop.id}" do 
         expect(page).to have_content("Active")
