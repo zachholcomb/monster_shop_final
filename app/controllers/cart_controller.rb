@@ -24,11 +24,10 @@ class CartController < ApplicationController
   def increase_quantity
     if cart.out_of_stock?(params[:item_id])
       flash[:error] = "Unable to add item! Inventory has reached 0."
-      redirect_to cart_path
     else
       cart.inc_qty(params[:item_id])
-      redirect_to cart_path
     end
+    redirect_to cart_path
   end
 
   def decrease_quantity

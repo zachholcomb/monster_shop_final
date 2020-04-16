@@ -6,11 +6,11 @@ class ItemOrdersController < ApplicationController
   
   private
   def cancel_order(order)
-    if params[:type] == "cancel"
+    if params[:type] == 'cancel'
       order.update(status: 3)
       return_to_inventory(order)
       unfulfill_item_orders(order)
-      flash[:alert] = "Order #{order.id} has been cancelled."
+      flash[:success] = "Order #{order.id} has been cancelled."
     end
     redirect_to "/profile"
   end
@@ -23,7 +23,7 @@ class ItemOrdersController < ApplicationController
 
   def return_to_inventory(order)
     order.item_orders.each do |item_order|
-      if item_order.status == "fulfilled"
+      if item_order.status == 'fulfilled'
         item = Item.find(item_order.item_id)
         updated_inventory = item.return_stock(item_order.quantity)
         item.update(inventory: updated_inventory)

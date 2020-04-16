@@ -18,9 +18,9 @@
         <p style= "color:red">Inactive</p>
       <% end %>
       <%= link_to "Add Review", "/items/#{@item.id}/reviews/new" %>
-      <% if current_merchant? || current_admin? %>
-        <p><%= link_to "Delete Item", "/items/#{@item.id}", method: :delete if @item.no_orders?%></p>
-        <p><%= link_to "Edit Item", "/items/#{@item.id}/edit" %></p>
+      <% if (current_merchant? || current_admin?) && @item.merchant_id == current_user.id %>
+        <p><%= link_to "Delete Item", "/merchant/items/#{@item.id}", method: :delete if @item.no_orders?%></p>
+        <p><%= link_to "Edit Item", "/merchant/items/#{@item.id}/edit" %></p>
       <% end %>
       <% if !current_admin? && @item.inventory > 0 %>
         <%= button_to "Add To Cart", "/cart/#{@item.id}", method: :post %>
