@@ -1,6 +1,6 @@
 <h1>Admin Merchant Dashboard</h1>
 <% if current_user.admin? %>
-  <p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
+  <p align="center"><%= link_to "New Merchant", "/admin/merchants/new" %></p>
 <% end %>
 
 <table>
@@ -25,9 +25,9 @@
         </td>
         <td>
           <% if merchant.enabled? %>
-            <%= button_to 'Disable Merchant', admin_merchant_path(merchant.id), method: :patch %>
+            <%= button_to 'Disable Merchant', admin_merchant_path(merchant.id, type: :disable), method: :patch %>
           <% else %>
-            <%= button_to 'Enable Merchant', admin_merchant_path(merchant.id), method: :patch %>
+            <%= button_to 'Enable Merchant', admin_merchant_path(merchant.id, type: :enable), method: :patch %>
           <% end %>
         </td>
        </section>

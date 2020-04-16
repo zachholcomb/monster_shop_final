@@ -1,0 +1,22 @@
+<h1>Edit Item</h1>
+
+<center>
+  <%= form_tag "/admin/merchants/#{@item.merchant_id}/items/#{@item.id}", method: :patch do %>
+  <%= label_tag :name, 'Name:' %>
+  <%= text_field_tag :name, @item.name%>
+
+  <%= label_tag :description, 'Description:' %>
+  <%= text_field_tag :description, @item.description %>
+
+  <%= label_tag :price, 'Price:' %>
+  <%= text_field_tag :price, @item.price %>
+
+  <%= label_tag :image, 'Image:' %>
+  <%= text_field_tag :image, @item.image %>
+
+  <%= label_tag :inventory, 'Inventory:' %>
+  <%= text_field_tag :inventory, @item.inventory %>
+
+  <%= submit_tag 'Submit Changes' %>
+  <% end %>
+</center>
