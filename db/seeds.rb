@@ -44,11 +44,11 @@ tootsie_roll = candy_shop.items.create(name: "Tootsie Roll", description: "Brown
 pop_rocks = candy_shop.items.create(name: "Pop Rocks", description: "Keep it poppin'!", price: 5, image: "https://www.bulkpricedfoodshoppe.com/wp-content/uploads/2017/02/product_6_9_699862.jpg", inventory: 50)
 
 #orders
-order0 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
-order1 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 3)
-order2 = user2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 2)
-order3 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 1)
-order4 = user2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 0)
+order0 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+order1 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 3)
+order2 = customer2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 2)
+order3 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 1)
+order4 = customer2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 0)
 
 #orders on items
 ItemOrder.create(item: tire, order: order0, price: tire.price, quantity: 2)
