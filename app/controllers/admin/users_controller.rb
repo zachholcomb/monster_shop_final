@@ -12,17 +12,9 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params[:user_id])
   end
 
-  def edit_password
-    @user = User.find(params[:user_id])
-  end
-
   def update
     user = User.find(params[:user_id])
     if user.update(user_params)
-      if params[:password]
-        flash[:notice] = "Password has been updated!"
-        return redirect_to "/admin/users/#{user.id}"
-      end
       flash[:notice] = "Profile has been updated!"
       redirect_to "/admin/users/#{user.id}"
     else
