@@ -11,7 +11,6 @@ RSpec.describe "As a registered user,", type: :feature do
                           email: "chunky_lover@example.com",
                           password: "123password")
 
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       visit "/login"
       fill_in :Email, with: user.email
       fill_in :Password, with: user.password
