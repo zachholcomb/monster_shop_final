@@ -95,7 +95,7 @@ Rails.application.routes.draw do
       patch '/items/:item_id', to: 'merchant_items#update'
       get '/items/new', to: 'merchant_items#new'
       post '/items', to: 'merchant_items#create'
+      delete '/items/:item_id', to: 'merchant_items#destroy'
     end
   end
-
 end

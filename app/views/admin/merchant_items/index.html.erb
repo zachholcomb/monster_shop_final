@@ -15,6 +15,9 @@
       <% else %>
         <p>Inactive <%= button_to 'Activate', "/admin/merchants/#{@merchant.id}/items/#{item.id}?type=activate", method: :patch %></p>
       <% end %>
+      <% if item.no_orders? %>
+        <p><%= button_to 'Delete', "/admin/merchants/#{@merchant.id}/items/#{item.id}", method: :delete %></p>
+      <% end %>
     </section>
     <% end %>
 </section>
