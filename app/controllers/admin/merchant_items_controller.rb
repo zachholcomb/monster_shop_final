@@ -27,10 +27,10 @@ class Admin::MerchantItemsController < Admin::BaseController
   end
 
   def destroy
-    merchant = find_merchant_from_item
+    merchant = find_merchant
     flash[:notice] = "#{find_item(merchant).name} was successfully deleted"
     find_item(merchant).delete
-    redirect_to '/admin/merchant/items'
+    redirect_to "/admin/merchants/#{merchant.id}/items"
   end
 
   private
