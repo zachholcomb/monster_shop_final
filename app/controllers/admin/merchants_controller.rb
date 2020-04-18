@@ -51,7 +51,7 @@ class Admin::MerchantsController < Admin::BaseController
       flash[:success] = "Merchant successfully updated!"
     else
       flash[:error] = merchant.errors.full_messages.to_sentence
-      render :edit
+      redirect_to "/admin/merchants/#{merchant.id}/edit"
     end
   end
 end
