@@ -93,7 +93,8 @@ Rails.application.routes.draw do
       get '/items', to: 'merchant_items#index'
       get '/items/:item_id/edit', to: 'merchant_items#edit'
       patch '/items/:item_id', to: 'merchant_items#update'
-  
+      get '/items/new', to: 'merchant_items#new'
+      post '/items', to: 'merchant_items#create'
     end
   end
 
