@@ -5,13 +5,13 @@
       <h2><%=link_to item.name, "/admin/items/#{item.id}" %></h2>
       <p>Sold by: <%=link_to item.merchant.name, "/admin/merchants/#{item.merchant.id}" %></p>
       <%=link_to image_tag(item.image), "/admin/items/#{item.id}" %>
-      <p> <%= item.description unless @merchant%></p>
+      <p> <%= item.description %></p>
       <p>Price: <%=number_to_currency(item.price) %></p>
       <p>Inventory: <%= item.inventory %></p>
-      <% if item.active?%>
-        <p>Active</p>
-        <% else %>
-        <p>Inactive</p>
+       <% if item.active? %>
+        <p>Active <%= button_to 'Deactivate', "/admin/merchants/#{@merchant.id}/items/#{item.id}?type=deactivate", method: :patch %></p>
+      <% else %>
+        <p>Inactive <%= button_to 'Activate', "/admin/merchants/#{@merchant.id}/items/#{item.id}?type=activate", method: :patch %></p>
       <% end %>
     </section>
     <% end %>
