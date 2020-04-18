@@ -3,6 +3,16 @@ class Admin::MerchantItemsController < Admin::BaseController
     @merchant = find_merchant
   end
 
+  def new
+    @merchant = find_merchant
+    @item = Item.new
+  end
+
+  def create
+    item = find_merchant.items.create(item_params)
+    item_check_creation(item)
+  end
+
   def edit
     @item = Item.find(params[:item_id])
   end
@@ -62,9 +72,11 @@ class Admin::MerchantItemsController < Admin::BaseController
   def item_check_creation(item)
      if item.save
       flash[:notice] = "Your item was saved!"
-      redirect_to '/admin/merchant/items'
+      redirect_to "/admin/merchants/#{item.merchant_id}/items"
     else
       flash[:notice] = item.errors.full_messages.to_sentence
+      @item = item
+      @merchant = item.merchant
       render :new
     end
   end
