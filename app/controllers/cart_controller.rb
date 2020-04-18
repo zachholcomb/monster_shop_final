@@ -1,24 +1,23 @@
 class CartController < ApplicationController
   def add_item
-    item = Item.find(params[:item_id])
+    item = find_item
     cart.add_item(item.id.to_s)
-    flash[:success] = "#{item.name} was successfully added to your cart"
-    redirect_to "/items"
+    add_item_success(item)
   end
 
   def show
-    restrict_admin
+    restrict_admin 
     @items = cart.items
   end
 
   def empty
     session.delete(:cart)
-    redirect_to '/cart'
+    empty_success
   end
 
   def remove_item
     session[:cart].delete(params[:item_id])
-    redirect_to '/cart'
+    remove_item_success
   end
 
   def increase_quantity
@@ -39,7 +38,26 @@ class CartController < ApplicationController
   end
 
   private
-    def restrict_admin
-      render file: "/public/404" if current_admin?
-    end
+  def restrict_admin
+    render file: "/public/404" if current_admin?
+  end
+
+  def find_item
+    Item.find(params[:item_id])
+  end
+
+  def add_item_success(item)
+    flash[:success] = "#{item.name} was successfully added to your cart"
+    redirect_to "/items"
+  end
+
+  def empty_success
+    flash[:success] = "Cart successfully emptied"
+    redirect_to '/cart'
+  end
+
+  def remove_item_success
+    flash[:success] = "Item removed from cart"
+    redirect_to '/cart'
+  end
 end
