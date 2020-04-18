@@ -14,7 +14,7 @@ class Item <ApplicationRecord
   validates_numericality_of :inventory, greater_than_or_equal_to: 0
   
   def set_defaults
-    if self.image == ""
+    if self.image == "" || self.image.nil?
       self.image = 'https://static.wixstatic.com/media/d8d60b_6ff8d8667db1462492d681839d85054c~mv2.png/v1/fill/w_900,h_900,al_c,q_90/file.jpg' 
     end
   end

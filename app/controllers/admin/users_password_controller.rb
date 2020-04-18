@@ -16,11 +16,6 @@ class Admin::UsersPasswordController < Admin::BaseController
   end
 
   private
-
-  def password_params
-    params.permit(:password, :password_confirmation)
-  end
-
   def update_password
     user = User.find(params[:user_id])
     user.update(password: params[:password])

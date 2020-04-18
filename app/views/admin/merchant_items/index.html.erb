@@ -1,17 +1,22 @@
 <h1><%= @merchant.name%> Items</h1>
+<%= link_to 'Add New Item', "/admin/merchants/#{@merchant.id}/items/new" %>
 <section class="grid-container">
   <% @merchant.items.each do |item| %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
       <h2><%=link_to item.name, "/admin/items/#{item.id}" %></h2>
       <p>Sold by: <%=link_to item.merchant.name, "/admin/merchants/#{item.merchant.id}" %></p>
       <%=link_to image_tag(item.image), "/admin/items/#{item.id}" %>
-      <p> <%= item.description unless @merchant%></p>
+      <p> <%= item.description %></p>
       <p>Price: <%=number_to_currency(item.price) %></p>
       <p>Inventory: <%= item.inventory %></p>
-      <% if item.active?%>
-        <p>Active</p>
-        <% else %>
-        <p>Inactive</p>
+      <p><%= button_to 'Edit', "/admin/merchants/#{@merchant.id}/items/#{item.id}/edit", method: :get %></p>
+       <% if item.active? %>
+        <p>Active <%= button_to 'Deactivate', "/admin/merchants/#{@merchant.id}/items/#{item.id}?type=deactivate", method: :patch %></p>
+      <% else %>
+        <p>Inactive <%= button_to 'Activate', "/admin/merchants/#{@merchant.id}/items/#{item.id}?type=activate", method: :patch %></p>
+      <% end %>
+      <% if item.no_orders? %>
+        <p><%= button_to 'Delete', "/admin/merchants/#{@merchant.id}/items/#{item.id}", method: :delete %></p>
       <% end %>
     </section>
     <% end %>

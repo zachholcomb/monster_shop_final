@@ -15,10 +15,6 @@ class UsersPasswordController < ApplicationController
 
   private
 
-  def password_params
-    params.permit(:password, :password_confirmation)
-  end
-
   def update_password
     current_user.update(password: params[:password])
     flash[:success] = "Your password has been updated!"

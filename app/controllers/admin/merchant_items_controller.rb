@@ -1,6 +1,16 @@
 class Admin::MerchantItemsController < Admin::BaseController 
   def index
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = find_merchant
+  end
+
+  def new
+    @merchant = find_merchant
+    @item = Item.new
+  end
+
+  def create
+    item = find_merchant.items.create(item_params)
+    item_check_creation(item)
   end
 
   def edit
@@ -9,7 +19,7 @@ class Admin::MerchantItemsController < Admin::BaseController
 
   def update
     if params[:type]
-      merchant = find_merchant_from_item
+      merchant = find_merchant
       change_item_status(merchant)
     else 
       update_item
@@ -17,10 +27,10 @@ class Admin::MerchantItemsController < Admin::BaseController
   end
 
   def destroy
-    merchant = find_merchant_from_item
+    merchant = find_merchant
     flash[:notice] = "#{find_item(merchant).name} was successfully deleted"
     find_item(merchant).delete
-    redirect_to '/admin/merchant/items'
+    redirect_to "/admin/merchants/#{merchant.id}/items"
   end
 
   private
@@ -30,7 +40,7 @@ class Admin::MerchantItemsController < Admin::BaseController
   end
   
   def find_item(merchant)
-    merchant.items.find(params[:id])
+    merchant.items.find(params[:item_id])
   end
 
   def update_item
@@ -52,19 +62,21 @@ class Admin::MerchantItemsController < Admin::BaseController
       find_item(merchant).update(active?: true)
       flash[:notice] = "#{find_item(merchant).name} is now for sale!"
     end
-    redirect_to '/admin/merchant/items'
+    redirect_to "/admin/merchants/#{merchant.id}/items"
   end
 
-  def find_merchant_from_item
-    item.merchant_id
+  def find_merchant
+    Merchant.find(params[:merchant_id])
   end
 
   def item_check_creation(item)
      if item.save
       flash[:notice] = "Your item was saved!"
-      redirect_to '/admin/merchant/items'
+      redirect_to "/admin/merchants/#{item.merchant_id}/items"
     else
       flash[:notice] = item.errors.full_messages.to_sentence
+      @item = item
+      @merchant = item.merchant
       render :new
     end
   end
