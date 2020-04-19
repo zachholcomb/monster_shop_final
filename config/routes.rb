@@ -73,7 +73,7 @@ Rails.application.routes.draw do
     get 'items/:id/edit', to: 'items#edit'
     get '/orders/:id', to: 'orders#show'
     patch '/item_orders/:id/', to: 'item_orders#update'
-
+    resources :discounts
   end
 
   #admin
