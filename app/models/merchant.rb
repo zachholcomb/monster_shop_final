@@ -4,6 +4,7 @@ class Merchant <ApplicationRecord
   has_many :orders, through: :item_orders
   has_many :merchant_employees, dependent: :destroy
   has_many :users, through: :merchant_employees
+  has_many :discounts
 
   validates_presence_of :name,
                         :address,
