@@ -12,15 +12,9 @@ class Merchant::DiscountsController < ApplicationController
   end
 
   def create
-    merchant = current_user.merchants.first
-    @discount = merchant.discounts.create(discount_params)
-    if @discount.save 
-      flash[:success] = "Discount was successfully created!"
-      redirect_to '/merchant/dashboard'
-    else
-      flash[:error] = @discount.errors.full_messages.to_sentence
-      render :new
-    end
+    merchant = find_merchant_from_user
+    @discount = create_discount(merchant)
+    discount_check_creation(@discount)
   end
 
   def edit
@@ -28,28 +22,62 @@ class Merchant::DiscountsController < ApplicationController
   end
 
   def update
-    merchant = current_user.merchants.first
-    discount = merchant.discounts.find(params[:id])
+    merchant = find_merchant_from_user
+    discount = get_discount_from_merchant(merchant)
     discount.update(discount_params)
-    if discount.save
-      flash[:success] = "Discount successfully updated"
-      redirect_to "/merchant/dashboard"
-    else
-      flash[:error] = discount.errors.full_messages.to_sentence
-      redirect_to "/merchant/discounts/#{discount.id}/edit"
-    end
+    discount_check_update(discount)
   end
 
   def destroy
-    merchant = current_user.merchants.first
-    discount = merchant.discounts.find(params[:id])
-    discount.delete
-    flash[:success] = "Discount was successfully deleted!"
-    redirect_to "/merchant/dashboard"
+    merchant = find_merchant_from_user
+    delete_discount(merchant)
   end
   
   private
   def discount_params
     params.permit(:name, :percentage, :item_amount)
+  end
+
+  def create_discount(merchant)
+    merchant.discounts.create(discount_params)
+  end
+  
+  def find_merchant_from_user
+    current_user.merchants.first
+  end
+
+  def get_discount_from_merchant(merchant)
+    merchant.discounts.find(params[:id])
+  end
+
+  def discount_update_success
+    flash[:success] = "Discount successfully updated"
+    redirect_to "/merchant/dashboard"
+  end
+
+  def discount_check_update(discount)
+    if discount.save
+      discount_update_success  
+    else
+      flash[:error] = discount.errors.full_messages.to_sentence
+      redirect_to "/merchant/discounts/#{discount.id}/edit"
+    end
+  end
+  
+  def delete_discount(merchant)
+    discount = get_discount_from_merchant(merchant)
+    discount.delete
+    flash[:success] = "Discount was successfully deleted!"
+    redirect_to "/merchant/dashboard"
+  end
+
+  def discount_check_creation(discount)
+    if discount.save 
+      flash[:success] = "Discount was successfully created!"
+      redirect_to '/merchant/dashboard'
+    else
+      flash[:error] = discount.errors.full_messages.to_sentence
+      render :new
+    end
   end
 end
