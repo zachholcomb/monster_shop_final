@@ -46,4 +46,27 @@ RSpec.describe "Merchant discounts index page" do
       click_link @discount1.name
     end
   end
+
+  it "has a link to create new discounts" do
+    visit "/merchant/discounts"
+    expect(page).to have_content('Create New Discount')
+    click_link('Create New Discount')
+    expect(page).to have_current_path("/merchant/discounts/new")
+  end
+
+  it "has a link to edit each discount next to the discount" do
+    visit "/merchant/discounts"
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_link "Edit Discount"
+      click_link "Edit Discount"
+    end
+    expect(page).to have_current_path("/merchant/discounts/#{@discount1.id}/edit") 
+  end
+
+   it "has a link to delete each discount next to the discount" do
+    visit "/merchant/discounts"
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_link "Delete Discount"
+    end
+  end
 end

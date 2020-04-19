@@ -66,4 +66,27 @@ RSpec.describe "as a merchant employee, when i visit my merchant dashboard", typ
     end
     expect(page).to have_current_path("/merchant/discounts")
   end
+
+  it "I see a link to add a new discount to my shop and it takes me to a form to create new discount" do
+    visit "/merchant/dashboard"
+    expect(page).to have_content('Create New Discount')
+    click_link('Create New Discount')
+    expect(page).to have_current_path("/merchant/discounts/new")
+  end
+
+  it "I see a link to edit each discount next to the discount" do
+    visit "/merchant/dashboard"
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_link "Edit Discount"
+      click_link "Edit Discount"
+    end
+    expect(page).to have_current_path("/merchant/discounts/#{@discount1.id}/edit") 
+  end
+
+  it "I see a link to delete each discount next to the discount" do
+    visit "/merchant/dashboard"
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_link "Delete Discount"
+    end
+  end
 end
