@@ -39,4 +39,11 @@ RSpec.describe "Merchant discounts index page" do
       expect(page).to have_content(@discount2.item_amount) 
     end
   end
+
+  it "can link to listed discounts show page" do
+    visit "/merchant/discounts"
+    within "#discount-#{@discount1.id}" do
+      click_link @discount1.name
+    end
+  end
 end
