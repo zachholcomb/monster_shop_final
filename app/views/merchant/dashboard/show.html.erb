@@ -10,3 +10,9 @@
   <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %>
   <p>Total Merchant Items Value: <%= order.merchant_grandtotal(@merchant.id) %>
 <% end %>
+<section id="merchant-discounts">
+<h2><%= link_to 'My Discounts', "/merchant/discounts" %></h2>
+<% @merchant.discounts.each do |discount| %>
+  <%= link_to discount.name, "/merchant/discounts/#{discount.id}" %>
+<% end %>
+</sction>
