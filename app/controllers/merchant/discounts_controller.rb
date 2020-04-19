@@ -42,7 +42,6 @@ class Merchant::DiscountsController < ApplicationController
     merchant.discounts.create(discount_params)
   end
   
-
   def find_merchant_from_user
     current_user.merchants.first
   end
