@@ -105,8 +105,13 @@ describe Item, type: :model do
 
     it 'apply_discount' do
       discount1 = @meg.discounts.create!(name: "Flash Sale", percentage: 10, item_amount: 5)
-      percent = (discount1.percentage.to_f / 100)
-      expect(@tire.apply_discount(percent)).to eq(90)
+      
+      expect(@tire.apply_discount(discount1.percentage)).to eq(90)
+    end
+
+    it 'percentage_to_decimal' do
+      expectation = (10.to_f / 100)
+      expect(@tire.percentage_to_decimal(10)).to eq(expectation) 
     end
   end
 
