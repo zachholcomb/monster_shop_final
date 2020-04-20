@@ -1,4 +1,6 @@
 class CartController < ApplicationController
+  before_action :restrict_admin
+  
   def add_item
     item = find_item
     cart.add_item(item.id.to_s)
@@ -6,7 +8,6 @@ class CartController < ApplicationController
   end
 
   def show
-    restrict_admin 
     @items = cart.items
   end
 
