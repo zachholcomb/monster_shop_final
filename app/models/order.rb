@@ -12,7 +12,7 @@ class Order <ApplicationRecord
   end
 
   def merchant_grandtotal(id)
-    items.where(merchant_id: id).sum('items.price * quantity')
+    items.where(merchant_id: id).sum('item_orders.price * item_orders.quantity')
   end
 
   def self.sort_status
