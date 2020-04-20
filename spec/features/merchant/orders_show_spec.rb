@@ -47,7 +47,7 @@ RSpec.describe "as a merchant employee, when i visit my merchant dashboard", typ
       expect(page).to have_content("Order ID: #{order4.id}")
       expect(page).to have_content("Date Created: #{order4.created_at.to_date}")
       expect(page).to have_content("Merchant Items: #{order4.merchant_order_items_count(dog_shop.id)}")
-      expect(page).to have_content("Total Merchant Items Value: #{order4.merchant_grandtotal(dog_shop.id)}")
+      expect(page).to have_content("Total Merchant Items Value: $30.00")
       expect(page).to have_no_content("Order ID: #{order0.id}")
       expect(page).to have_no_content("Order ID: #{order1.id}")
       expect(page).to have_no_content("Order ID: #{order2.id}")
@@ -220,8 +220,7 @@ RSpec.describe "as a merchant employee, when i visit my merchant dashboard", typ
       expect(new_dog_bone.inventory).to eq(17)
     end
 
-    it 'if the users desired quantity is greater than my inventory there is a message saying I cannot fulfill no Fulfill button ' do
-      
+    it 'if the users desired quantity is greater than my inventory there is a message saying I cannot fulfill no Fulfill button ' do  
       dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
       pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 5)
       employee = dog_shop.users.create!(
@@ -251,6 +250,5 @@ RSpec.describe "as a merchant employee, when i visit my merchant dashboard", typ
         expect(page).to have_content("You do not have enough stock to fulfill this order!")
       end
     end
-    
   end
 end
