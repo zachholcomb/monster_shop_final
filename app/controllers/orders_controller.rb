@@ -25,7 +25,6 @@ class OrdersController <ApplicationController
     end
   end
 
-
   private
 
   def order_params
@@ -34,12 +33,32 @@ class OrdersController <ApplicationController
 
   def create_item_orders(order)
     cart.items.each do |item, quantity|
-      order.item_orders.create({
+      if check_item_for_discounts(item, quantity)
+        create_item_order(order, item, quantity)
+      else 
+        create_discounted_item_order(order, item, quantity)
+      end
+    end
+  end
+
+  def create_item_order(order, item, quantity)
+    order.item_orders.create({
         item: item,
         quantity: quantity,
         price: item.price
         })
-    end
+  end
+
+  def create_discounted_item_order(order, item, quantity)
+    order.item_orders.create({
+      item: item,
+      quantity: quantity,
+      price: item.apply_discount((item.select_highest_discount(quantity).percentage))
+    })
+  end
+
+  def check_item_for_discounts(item, quantity)
+    item.no_discounts?(quantity)
   end
 
   def create_user_order
