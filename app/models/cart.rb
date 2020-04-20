@@ -28,13 +28,17 @@ class Cart
 
   def subtotal_with_discounts(item, quantity)
     discount = item.select_highest_discount(quantity)
-    percentage = discount.percentage.to_f / 100
-    (item.apply_discount(percentage)) * quantity
+    (item.apply_discount(discount.percentage)) * quantity
   end
 
   def total
-    @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+    @contents.sum do |item_id, quantity|
+      item = Item.find(item_id)
+      if item.no_discounts?(quantity)
+        subtotal(item)
+      else 
+        subtotal_with_discounts(item, quantity)
+      end
     end
   end
 
