@@ -10,7 +10,7 @@ RSpec.describe 'As a user when I visit an items show page' do
     @dog_bone = @meg.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
     @discount1 = @meg.discounts.create!(name: "Flash Sale", percentage: 10, item_amount: 5)
     @discount2 = @meg.discounts.create!(name: "Fifty Percent Off 50 items", percentage: 25, item_amount: 10)
-    @user = @meg.users.create!(
+    @user = User.create!(
       name: "Steve",
       address:"123 Main St.",
       city: "Fort Collins",
