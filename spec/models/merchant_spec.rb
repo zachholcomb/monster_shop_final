@@ -22,6 +22,8 @@ describe Merchant, type: :model do
     before(:each) do
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @discount1 = @meg.discounts.create!(name: "Flash Sale", percentage: 10, item_amount: 5)
+      @discount2 = @meg.discounts.create!(name: "Fifty Percent Off 50 items", percentage: 50, item_amount: 50)
     end
     it 'no_orders' do
       expect(@meg.no_orders?).to eq(true)
@@ -108,6 +110,5 @@ describe Merchant, type: :model do
 
       expect(pull_toy.active?).to eq(true)
     end
-
   end
 end

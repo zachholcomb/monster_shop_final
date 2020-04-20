@@ -1,7 +1,15 @@
 <h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}" %></h1>
 <p class="address"><%= @merchant.address %></p>
 <p class="address"><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
-
+<section id="merchant-discounts">
+  <% if !(@merchant.discounts == [])%>
+    <h3>We have specials on offer for bulk orders:</h3>
+    <% @merchant.discounts.each do |discount| %>
+      <p><%= discount.name %>
+    <% end %>
+  <% else %>
+    <h3>We currently have no specials on offer</h3>
+  <% end %>
 <ul><%= link_to "All #{@merchant.name} Items", "/merchants/#{@merchant.id}/items" %></ul>
 <% if current_user %>
   <% if current_user.admin? || current_user.merchant? %>

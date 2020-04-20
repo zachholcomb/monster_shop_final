@@ -26,6 +26,12 @@ class Cart
     item.price * @contents[item.id.to_s]
   end
 
+  def subtotal_with_discounts(item, quantity)
+    discount = item.select_highest_discount(quantity)
+    percentage = discount.percentage.to_f / 100
+    (item.apply_discount(percentage)) * quantity
+  end
+
   def total
     @contents.sum do |item_id,quantity|
       Item.find(item_id).price * quantity

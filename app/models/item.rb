@@ -62,4 +62,24 @@ class Item <ApplicationRecord
   def sell_stock(amount)
     self.inventory -= amount
   end
+
+  def find_discounts
+   merchant.discounts
+  end
+
+  def no_discounts?(quantity)
+    merchant.discounts.where("#{quantity} >= discounts.item_amount") == []
+  end
+
+  def select_highest_discount(quantity)
+    merchant.discounts
+            .where("#{quantity} >= discounts.item_amount")
+            .order('discounts.percentage DESC')
+            .first
+  end
+
+  def apply_discount(percentage)
+    total_discount = price * percentage
+    price - total_discount
+  end
 end
