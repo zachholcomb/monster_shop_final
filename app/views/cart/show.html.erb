@@ -41,7 +41,11 @@
           </td>
         <td>
       </section>
+      <% if !(item.no_discounts?(quantity)) %>
+        <p><%=number_to_currency(cart.subtotal_with_discounts(item, quantity))%></p>
+      <% else %>
         <p><%=number_to_currency(cart.subtotal(item))%></p>
+      <% end %>
     </td>
     </tr>
   <% end %>
