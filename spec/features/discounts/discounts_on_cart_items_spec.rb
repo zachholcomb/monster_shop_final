@@ -7,7 +7,7 @@ RSpec.describe "As a user when I add enough of one item to my cart" do
     @pull_toy = @meg.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
     @dog_bone = @meg.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
     @discount1 = @meg.discounts.create!(name: "Flash Sale", percentage: 10, item_amount: 5)
-    @discount2 = @meg.discounts.create!(name: "Fifty Percent Off 50 items", percentage: 50, item_amount: 50)
+    @discount2 = @meg.discounts.create!(name: "Fifty Percent Off 50 items", percentage: 25, item_amount: 10)
     @user = @meg.users.create!(
       name: "Steve",
       address:"123 Main St.",
@@ -35,6 +35,7 @@ RSpec.describe "As a user when I add enough of one item to my cart" do
       click_on "Increase Quantity"
     end
   end
+
   it "I see a discount applied to that item" do
     visit "/cart"
     
@@ -42,5 +43,44 @@ RSpec.describe "As a user when I add enough of one item to my cart" do
       expect(page).to have_content("5")
       expect(page).to have_content "$450.00"
     end 
+  end
+
+  it "I see the discount applied with the highest percentage off as increase my items quantity" do
+    visit "/cart"
+    within "#item-quantity-#{@tire.id}" do
+      5.times do
+        click_on "Increase Quantity"
+      end
+    end
+
+    within "#item-quantity-#{@tire.id}" do
+      expect(page).to have_content("5")
+      expect(page).to have_content "$750.00"
+    end 
+  end 
+
+  it "I see the name of the discount that has been applied to my order" do
+    visit "/cart"
+
+    within "#item-quantity-#{@tire.id}" do
+      expect(page).to have_content("#{@tire.name} qualifies for #{@discount1.name}")
+
+      5.times do
+        click_on "Increase Quantity"
+      end
+
+      expect(page).to have_content(@discount2.name)
+    end 
+  end 
+
+  it "I see that I have no discounts applied if my item doesn't qualify for any discounts" do
+    visit "/items/#{@pull_toy.id}"
+    click_on "Add To Cart"
+
+    visit "/cart"
+
+    within "#item-#{@pull_toy.id}" do
+      expect(page).to have_content("No discounts applied, order more and save!")
+    end
   end
 end
