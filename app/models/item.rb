@@ -78,8 +78,12 @@ class Item <ApplicationRecord
             .first
   end
 
+  def percentage_to_decimal(percentage)
+    percentage.to_f / 100
+  end
+
   def apply_discount(percentage)
-    total_discount = price * percentage
+    total_discount = price * percentage_to_decimal(percentage)
     price - total_discount
   end
 end
