@@ -111,4 +111,17 @@ describe Merchant, type: :model do
       expect(pull_toy.active?).to eq(true)
     end
   end
+
+  it "items_with_default_images" do
+    meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    pull_toy = meg.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+    dog_bone = meg.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
+    tire2 = meg.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 100, inventory: 12)
+    pull_toy2 = meg.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, inventory: 32)
+    dog_bone2 = meg.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, inventory: 21)
+
+    expect(meg.items_with_default_images).to eq([tire2, pull_toy2, dog_bone2])
+  end
+  
 end
