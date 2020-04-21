@@ -17,8 +17,8 @@ dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', c
 candy_shop = Merchant.create(name: "50 Cent's Candy Shop", address: '512 Electric Avenue', city: 'Silverthorne', state: 'CO', zip: 81103, enabled?: false)
 
 #merchant_discounts
-discount1 = bike_shop.discounts.create!(name: "Flash Sale", percentage: 10, item_amount: 5)
-discount2 = bike_shop.discounts.create!(name: "Fifty Percent Off 50 items", percentage: 25, item_amount: 10)
+discount1 = bike_shop.discounts.create!(name: "Flash Sale: 10% Off 5 Items", percentage: 10, item_amount: 5)
+discount2 = bike_shop.discounts.create!(name: "25% Off 10 Items", percentage: 25, item_amount: 10)
 
 #users
 regular = User.create(name: "Regular User", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "user@example.com", password: "password_regular")
