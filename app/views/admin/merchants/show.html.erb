@@ -18,3 +18,9 @@
     <% end %>
   </section>
 </section>
+<h2><%= link_to "#{@merchant.name} Discounts", "/admin/merchants/#{@merchant.id}/discounts" %></h2>
+<% @merchant.discounts.each do |discount| %>
+  <section id="discount-<%= discount.id %>">
+    <p><%= link_to discount.name, "/admin/merchants/#{@merchant.id}/discounts/#{discount.id}" %></p>
+  </section>
+<% end %>

@@ -1,0 +1,15 @@
+<h1>Create New Discount</h1>
+<section class="form">
+  <%= form_tag "/admin/merchants/#{@merchant.id}/discounts", method: :post do %>
+  <%= label_tag :name, 'Name:' %>
+  <%= text_field_tag :name, @discount.name%>
+
+  <%= label_tag :percentage, 'Percentage:' %>
+  <%= text_field_tag :percentage, @discount.percentage %>
+
+  <%= label_tag :item_amount, 'Item Amount Required to Reach Discount:' %>
+  <%= text_field_tag :item_amount, @discount.item_amount %>
+
+  <%= submit_tag 'Create Discount' %>
+  <% end %>
+</section>

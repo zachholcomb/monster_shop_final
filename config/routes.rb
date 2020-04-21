@@ -90,6 +90,13 @@ Rails.application.routes.draw do
     resources :items
     resources :orders, only: [:update]
     resources :merchants do
+      get '/discounts/new', to: 'merchant_discounts#new'
+      post '/discounts', to: 'merchant_discounts#create'
+      get '/discounts/:discount_id', to: 'merchant_discounts#show'
+      get '/discounts', to: 'merchant_discounts#index'
+      get '/discounts/:discount_id/edit', to: 'merchant_discounts#edit'
+      patch '/discounts/:discount_id', to: 'merchant_discounts#update'
+      delete '/discounts/:discount_id', to: 'merchant_discounts#destroy'
       get '/items', to: 'merchant_items#index'
       get '/items/:item_id/edit', to: 'merchant_items#edit'
       patch '/items/:item_id', to: 'merchant_items#update'
