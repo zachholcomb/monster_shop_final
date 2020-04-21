@@ -77,6 +77,15 @@ section[id*='login_nav'] {
  	text-align: center
  }
 
+  .grid-item-light{
+ 	background-color: antiquewhite;
+ 	padding: 20px;
+  border: solid;
+ 	border-radius: 12px;
+  border-color: #002244;
+ 	text-align: center
+ }
+
  .item-show-grid{
   width: 60%;
  	display: grid;
