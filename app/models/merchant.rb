@@ -40,4 +40,9 @@ class Merchant <ApplicationRecord
   def activate_items
     items.update(active?: true)
   end
+
+  def items_with_default_images
+    default = 'https://static.wixstatic.com/media/d8d60b_6ff8d8667db1462492d681839d85054c~mv2.png/v1/fill/w_900,h_900,al_c,q_90/file.jpg' 
+    items.where(image: default)
+  end
 end
