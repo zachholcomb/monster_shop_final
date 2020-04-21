@@ -8,7 +8,7 @@
   <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %>
   <p>Date Created: <%= order.created_at.to_date %>
   <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %>
-  <p>Total Merchant Items Value: <%= order.merchant_grandtotal(@merchant.id) %>
+  <p>Total Merchant Items Value: <%= number_to_currency(order.merchant_grandtotal(@merchant.id)) %>
 <% end %>
 <section id="merchant-discounts">
 <h2><%= link_to 'My Discounts', "/merchant/discounts" %></h2>

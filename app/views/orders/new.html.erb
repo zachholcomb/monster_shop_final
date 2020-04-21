@@ -2,8 +2,8 @@
 <table>
   <tr>
     <th>Item</th>
-    <th>Price</th>
     <th>Quantity</th>
+    <th>Price</th>
     <th>Subtotal</th>
     <th>Sold By</th>
     <th>Inventory</th>
@@ -12,9 +12,14 @@
   <% cart.items.each do |item, quantity| %>
     <tr id='order-item-<%= item.id%>'>
       <td><h2><%= link_to item.name, "/items/#{item.id}" %></h2></td>
-      <td><p><%= number_to_currency(item.price) %></p></td>
       <td><p><%= quantity %></p></td>
-      <td><p><%= number_to_currency(cart.subtotal(item)) %></p><td>
+      <% if !(item.no_discounts?(quantity))%>
+        <td><p><%= number_to_currency(item.apply_discount((item.select_highest_discount(quantity).percentage))) %></p></td>
+        <td><p><%= number_to_currency(cart.subtotal_with_discounts(item, quantity)) %></p><td>
+      <% else %>
+        <td><p><%= number_to_currency(item.price) %></p></td>
+        <td><p><%= number_to_currency(cart.subtotal(item)) %></p><td>
+      <% end %>
       <td><p><%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %></p></td>
       <td><p><%= item.inventory %> in stock</p></td>
     </tr>

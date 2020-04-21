@@ -53,6 +53,23 @@ RSpec.describe Cart do
 
       expect(cart.total).to eq(150)
     end
+
+    it "returns total for the cart with discounted items" do
+      bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = bike_shop.items.create(inventory: 50, name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588")
+      tire2 = bike_shop.items.create(inventory: 5, name: "Goodyear", description: "They're good for a year!", price: 150, image: "https://www.adventurecycling.org/sites/default/assets/Image/AdventureCyclist/OnlineFeatures/2018/Goodyear%20Tires/LoganVB_9829.jpg")
+      discount1 = bike_shop.discounts.create!(name: "Flash Sale", percentage: 10, item_amount: 5)
+      cart = Cart.new(Hash.new(0))
+
+      cart.add_item(tire.id.to_s)
+      cart.add_item(tire2.id.to_s)
+
+      4.times do 
+        cart.inc_qty(tire2.id.to_s)
+      end
+
+      expect(cart.total).to eq(775)
+    end
   end
 
   describe "#subtotal" do

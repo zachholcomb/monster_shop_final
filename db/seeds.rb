@@ -22,7 +22,7 @@ discount2 = bike_shop.discounts.create!(name: "Fifty Percent Off 50 items", perc
 
 #users
 regular = User.create(name: "Regular User", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "user@example.com", password: "password_regular")
-test_merchant = dog_shop.users.create(name: "Dog Shop Employee", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "merchant@example.com", password: "password_merchant", role: 1)
+test_merchant = bike_shop.users.create(name: "Dog Shop Employee", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "merchant@example.com", password: "password_merchant", role: 1)
 dog_merchant = dog_shop.users.create(name: "Dog Shop Employee", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "dog_merchant@example.com", password: "1234", role: 1)
 bike_merchant = bike_shop.users.create(name: "Bike Shop Employee", address:"123 Real St.", city: "Boudler", state: "CO", zip: "80311", email: "bike_merchant@example.com", password: "1234", role: 1)
 candy_merchant = candy_shop.users.create(name: "Candy Shop Employee", address:"311 Realfake St.", city: "Longmont", state: "CO", zip: "80001", email: "candy_merchant@example.com", password: "1234", role: 1)

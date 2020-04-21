@@ -30,7 +30,11 @@
           </p>
         </td>
         <td>
-          <p><%=number_to_currency(item.price)%></p>
+          <% if !(item.no_discounts?(quantity)) %>
+            <p><%=number_to_currency(item.apply_discount(item.select_highest_discount(quantity).percentage))%></p>
+          <% else %>
+            <p><%=number_to_currency(item.price)%></p>
+          <% end %>
         </td>
           <section id="item-quantity-<%= item.id %>">
             <td>
