@@ -1,0 +1,5 @@
+<h1><%= @discount.name %></h1>
+<p>Percentage Off: <%= number_to_percentage(@discount.percentage, precision: 0)%></p>
+<p>Items Required to Reach Discount: <%= @discount.item_amount%></p>
+<p><%= link_to 'Edit Discount', "/admin/merchants/#{@discount.merchant_id}/discounts/#{@discount.id}/edit"%></p>
+<p><%= link_to 'Delete Discount', "/admin/merchants/#{@discount.merchant_id}/discounts/#{@discount.id}", method: :delete%></p>
