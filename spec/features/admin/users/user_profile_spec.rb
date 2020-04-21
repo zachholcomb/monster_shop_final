@@ -126,7 +126,7 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
       expect(page).to have_content("Date Last Updated: #{order1.updated_at}")
       expect(page).to have_content("Status: #{order1.status}")
       expect(page).to have_content("Item Quantity: #{order1.total_item_quantity}")
-      expect(page).to have_content("Grand Total: #{order1.grandtotal}")
+      expect(page).to have_content("Grand Total: $17.00")
     end
 
     within("#order-#{order2.id}") do
@@ -135,7 +135,7 @@ RSpec.describe "as an admin, when i visit a user profile page", type: :feature d
       expect(page).to have_content("Date Last Updated: #{order2.updated_at}")
       expect(page).to have_content("Status: #{order2.status}")
       expect(page).to have_content("Item Quantity: #{order2.total_item_quantity}")
-      expect(page).to have_content("Grand Total: #{order2.grandtotal}")
+      expect(page).to have_content("Grand Total: $10.00")
     end
 
   end
