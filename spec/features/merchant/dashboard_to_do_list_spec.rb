@@ -83,10 +83,8 @@ RSpec.describe "As a merchant user, when I visit my dashboard" do
 
     visit "/merchant/dashboard"
 
-    within "#to-do-list" do
-      expect(page).to have_content("Unfulfilled Orders:")
-      expect(page).to have_content("You have 3 unfulfilled orders worth $324.00")
-    end
+    expect(page).to have_content("Unfulfilled Orders:")
+    expect(page).to have_content("You have 3 unfulfilled orders worth $324.00")
   end
 
   it "I see that all my items have been fulfilled" do
@@ -108,9 +106,7 @@ RSpec.describe "As a merchant user, when I visit my dashboard" do
     fill_in :Password, with: employee.password
     click_button "Login"
 
-    within "#to-do-list" do
-      expect(page).to have_content("All orders fulfilled!")
-    end
+    expect(page).to have_content("All orders fulfilled!")
   end
 
   it "I see a warning if an order exceeds my current inventory" do
@@ -134,7 +130,6 @@ RSpec.describe "As a merchant user, when I visit my dashboard" do
     ItemOrder.create(item: @pull_toy, order: order2, price: @pull_toy.price, quantity: 33)
 
     visit "/merchant/dashboard"
-    
     expect(page).to have_content("#{@tire.name} has too many orders on it, you need to contact the buyers!")
     expect(page).to have_content("#{@pull_toy.name} has too many orders on it, you need to contact the buyers!")
   end
