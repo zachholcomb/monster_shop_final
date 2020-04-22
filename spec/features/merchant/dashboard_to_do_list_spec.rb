@@ -71,4 +71,55 @@ RSpec.describe "As a merchant user, when I visit my dashboard" do
       expect(page).to have_content("No images to update!")
     end
   end
+
+  it "I see a section of the to do list that lists the amount of money I have in unfulfilled orders" do
+    user1 = User.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', email: "user1@example.com", password: "user1")
+    order1 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    order2 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    order3 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    ItemOrder.create(item: @tire, order: order1, price: @tire.price, quantity: 2)
+    ItemOrder.create(item: @dog_bone, order: order2, price: @dog_bone.price, quantity: 4)
+    ItemOrder.create(item: @pull_toy, order: order3, price: @pull_toy.price, quantity: 4)
+
+    visit "/merchant/dashboard"
+
+    within "#to-do-list" do
+      expect(page).to have_content("Unfulfilled Orders:")
+      expect(page).to have_content("You have 3 unfulfilled orders worth $324.00")
+    end
+  end
+
+  it "I see that all my items have been fulfilled" do
+    click_link 'Logout'
+    bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    employee = bike_shop.users.create!(
+        name: "Steve",
+        address:"123 Main St.",
+        city: "Fort Collins",
+        state: "GA",
+        zip: "66666",
+        email: "chunky_merchant@example.com",
+        password: "123password",
+        role: 1
+      )
+    
+    visit "/login"
+    fill_in :Email, with: employee.email
+    fill_in :Password, with: employee.password
+    click_button "Login"
+
+    within "#to-do-list" do
+      expect(page).to have_content("All orders fulfilled!")
+    end
+  end
+
+  it "I see a warning if an order exceeds my current inventory" do
+    user1 = User.create!(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', email: "user1@example.com", password: "user1")
+    order1 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    ItemOrder.create!(item: @tire, order: order1, price: @tire.price, quantity: 13)
+    
+    visit "/merchant/dashboard"
+
+    expect(page).to have_content("You cannot complete this order with your current inventory, please contact the buyer!")
+  end
 end

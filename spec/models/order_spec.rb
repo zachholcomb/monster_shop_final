@@ -65,7 +65,6 @@ describe Order, type: :model do
       expect(@order_1.merchant_order_items_count(@meg.id)).to eq(2)
       expect(@order_1.merchant_order_items_count(@brian.id)).to eq(3)
     end
-
   end
 
   describe "class methods" do
