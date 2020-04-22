@@ -17,15 +17,26 @@
       <% else %>
         <p>No images to update!</p>
       <% end %>
+      <h4>Unfulfilled Orders:</h4>
+      <% if @merchant.unfulfilled_orders_count > 0 %>
+        <p>You have <%= @merchant.unfulfilled_orders_count %> unfulfilled orders worth <%= number_to_currency(@merchant.unfulfilled_items_total)%></p>
+      <% else %>
+        <p>All orders fulfilled!</p>
+      <% end %>
     </section>
   </section>
   <section class = 'grid-item-light'>
     <h2>Orders</h2>
     <% @merchant.pending_orders.each do |order| %>
-      <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %></p>
-      <p>Date Created: <%= order.created_at.to_date %></p>
-      <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %></p>
-      <p>Total Merchant Items Value: <%= number_to_currency(order.merchant_grandtotal(@merchant.id)) %></p>
+      <section id="order-<%= order.id %>">
+        <% if @merchant.exceeds_inventory?(order) %>
+          <p>You cannot complete this order with your current inventory, please contact the buyer!</p>
+        <% end %>
+        <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %></p>
+        <p>Date Created: <%= order.created_at.to_date %></p>
+        <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %></p>
+        <p>Total Merchant Items Value: <%= number_to_currency(order.merchant_grandtotal(@merchant.id)) %></p>
+      </scetion>
     <% end %>
   </section>
   <section class = 'grid-item-light'>
