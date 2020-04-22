@@ -3,21 +3,60 @@
 <p><%= @merchant.address %>
 <p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %>
 <h2><%= link_to "Merchant Items", "/merchant/items" %></h2>
-<h2>Orders</h2>
-<% @merchant.pending_orders.each do |order| %>
-  <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %>
-  <p>Date Created: <%= order.created_at.to_date %>
-  <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %>
-  <p>Total Merchant Items Value: <%= number_to_currency(order.merchant_grandtotal(@merchant.id)) %>
-<% end %>
-<section id="merchant-discounts">
-<h2><%= link_to 'My Discounts', "/merchant/discounts" %></h2>
-<% @merchant.discounts.each do |discount| %>
-  <section id="discount-<%= discount.id %>">
-    <p><%= link_to discount.name, "/merchant/discounts/#{discount.id}" %></p>
-    <p><%= link_to 'Edit Discount', "/merchant/discounts/#{discount.id}/edit"%></p>
-    <p><%= link_to 'Delete Discount', "/merchant/discounts/#{discount.id}", method: :delete%></p>
+<section class= 'grid-container'>
+  <section class = 'grid-item-light'>
+    <section id="to-do-list">
+      <h2>** TO DO: **</h2>
+      <h4>My Items That Need Images</h4>
+      <% if !(@merchant.items_with_default_images == []) %>
+          <% @merchant.items_with_default_images.each do |item| %>
+            <p><%= link_to item.name, "/merchant/items/#{item.id}/edit"%></p>
+          <% end %>
+      <% else %>
+        <p>No images to update!</p>
+      <% end %>
+    </section>
   </section>
-<% end %>
-<h2><%= link_to 'Create New Discount', "/merchant/discounts/new" %>
-</sction>
+  <section class = 'grid-item-light'>
+    <h4>Unfulfilled Orders:</h4>
+    <% if @merchant.unfulfilled_orders_count > 0 %>
+      <p>You have <%= @merchant.unfulfilled_orders_count %> unfulfilled orders worth <%= number_to_currency(@merchant.unfulfilled_items_total)%></p>
+    <% else %>
+      <p>All orders fulfilled!</p>
+    <% end %>
+  </section>
+  <section class = 'grid-item-light'>
+    <h4>Items where orders exceed their inventory:</h4>
+    <% @merchant.items.each do |item| %>
+      <% if @merchant.orders_exceed_inventory?(item) %>
+        <p><%= item.name %> has too many orders on it, you need to contact the buyers!</p>
+      <% end %>
+    <% end %>
+  </section>
+  <section class = 'grid-item-light'>
+    <h2>Orders</h2>
+    <% @merchant.pending_orders.each do |order| %>
+      <section id="order-<%= order.id %>">
+        <% if @merchant.exceeds_inventory?(order) %>
+          <p>You cannot complete this order with your current inventory, please contact the buyer!</p>
+        <% end %>
+        <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %></p>
+        <p>Date Created: <%= order.created_at.to_date %></p>
+        <p>Merchant Items: <%= order.merchant_order_items_count(@merchant.id) %></p>
+        <p>Total Merchant Items Value: <%= number_to_currency(order.merchant_grandtotal(@merchant.id)) %></p>
+      </section>
+    <% end %>
+  </section>
+  <section class = 'grid-item-light'>
+    <section id="merchant-discounts">
+    <h2><%= link_to 'My Discounts', "/merchant/discounts" %></h2>
+    <% @merchant.discounts.each do |discount| %>
+      <section id="discount-<%= discount.id %>">
+        <h3><%= link_to discount.name, "/merchant/discounts/#{discount.id}" %></h3>
+        <p><%= link_to 'Edit Discount', "/merchant/discounts/#{discount.id}/edit"%></p>
+        <p><%= link_to 'Delete Discount', "/merchant/discounts/#{discount.id}", method: :delete%></p>
+      </section>
+    <% end %>
+    <h2><%= link_to 'Create New Discount', "/merchant/discounts/new" %>
+  </sction>
+</section>
