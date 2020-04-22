@@ -61,4 +61,8 @@ class Merchant <ApplicationRecord
       false
     end
   end
+
+  def orders_exceed_inventory?(item)
+    item_orders.where(item_id: item.id).sum('item_orders.quantity') > item.inventory
+  end
 end
