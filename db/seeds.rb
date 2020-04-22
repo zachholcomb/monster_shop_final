@@ -18,7 +18,7 @@ candy_shop = Merchant.create(name: "50 Cent's Candy Shop", address: '512 Electri
 
 #merchant_discounts
 discount1 = bike_shop.discounts.create!(name: "Flash Sale: 10% Off 5 Items", percentage: 10, item_amount: 5)
-discount2 = bike_shop.discounts.create!(name: "25% Off 10 Items", percentage: 25, item_amount: 10)
+discount2 = bike_shop.discounts.create!(name: "Monster Sale: 25% Off 10 Items", percentage: 25, item_amount: 10)
 
 #users
 regular = User.create(name: "Regular User", address:"321 Fake St.", city: "Arvada", state: "CO", zip: "80301", email: "user@example.com", password: "password_regular")
@@ -41,6 +41,9 @@ dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it
 dog_bowl = dog_shop.items.create(name: "Dog Bowl", description: "Great dog bowl!", price: 7, image: "https://www.talltailsdog.com/pub/media/catalog/product/cache/a0f79b354624f8eb0e90cc12a21406d2/u/n/untitled-6.jpg", inventory: 32)
 dog_ball = dog_shop.items.create(name: "Dog Ball", description: "Awesome dog ball!", price: 5, image: "https://img.chewy.com/is/image/catalog/59155_MAIN._AC_SL1500_V1518033665_.jpg", inventory: 20)
 dog_leash = dog_shop.items.create(name: "Dog Leash", description: "Sturdy dog leash!", price: 10, image: "https://cdn.shopify.com/s/files/1/1728/3089/products/max_and_neo_small_dog_leash_black.jpg?v=1555617800", inventory: 11)
+chuck_it = dog_shop.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 100, inventory: 12)
+tennis_ball = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, inventory: 32)
+raw_hide = dog_shop.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, inventory: 21)
 
 #candy_shop items
 lollipop = candy_shop.items.create(name: "Lollipop", description: "Sweet!", price: 13, image: "https://hotlix.com/wp-content/uploads/2018/07/ant-individual-watermelon.jpg", inventory: 8)
@@ -53,8 +56,8 @@ order1 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', 
 order2 = customer2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 2)
 order3 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 1)
 order4 = customer2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 0)
-order5 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
-order6 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+order5 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+order6 = customer2.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
 
 
 #orders on items
