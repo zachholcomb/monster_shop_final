@@ -122,4 +122,20 @@ RSpec.describe "As a merchant user, when I visit my dashboard" do
 
     expect(page).to have_content("You cannot complete this order with your current inventory, please contact the buyer!")
   end
+
+  it "I see a warning about individual items if multiple orders exceed my current inventory" do
+    user1 = User.create!(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', email: "user1@example.com", password: "user1")
+    order1 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    order2 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    ItemOrder.create!(item: @tire, order: order1, price: @tire.price, quantity: 13)
+    ItemOrder.create(item: @tire, order: order1, price: @tire.price, quantity: 8)
+    ItemOrder.create(item: @pull_toy, order: order1, price: @pull_toy.price, quantity: 33)
+    ItemOrder.create(item: @tire, order: order2, price: @tire.price, quantity: 5)
+    ItemOrder.create(item: @pull_toy, order: order2, price: @pull_toy.price, quantity: 33)
+
+    visit "/merchant/dashboard"
+    
+    expect(page).to have_content("#{@tire.name} has too many orders on it, you need to contact the buyers!")
+    expect(page).to have_content("#{@pull_toy.name} has too many orders on it, you need to contact the buyers!")
+  end
 end

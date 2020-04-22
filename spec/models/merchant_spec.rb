@@ -171,4 +171,21 @@ describe Merchant, type: :model do
     expect(meg.exceeds_inventory?(order1)).to eq(true)
     expect(meg.exceeds_inventory?(order2)).to eq(false)
   end
+
+  it "orders_exceed_inventory?" do
+
+    dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+    pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", active?: true, inventory: 32)
+    meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    dog_bone = meg.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
+    user1 = User.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', email: "user1@example.com", password: "user1")
+    order1 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    order2 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+    ItemOrder.create(item: tire, order: order1, price: tire.price, quantity: 8)
+    ItemOrder.create(item: pull_toy, order: order1, price: pull_toy.price, quantity: 33)
+    ItemOrder.create(item: tire, order: order2, price: tire.price, quantity: 5)
+    ItemOrder.create(item: pull_toy, order: order2, price: pull_toy.price, quantity: 33)
+    expect(meg.orders_exceed_inventory?(tire)).to eq(true)  
+  end
 end
