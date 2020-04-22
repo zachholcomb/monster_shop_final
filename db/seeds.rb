@@ -53,6 +53,9 @@ order1 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', 
 order2 = customer2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 2)
 order3 = customer1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 1)
 order4 = customer2.orders.create(name: 'Jordan Sewell', address: '123 Fake St.', city: 'Arvada', state: 'CO', zip: '80301', status: 0)
+order5 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+order6 = user1.orders.create(name: 'Steve Meyers', address: '555 Free St.', city: 'Plano', state: 'TX', zip: '88992', status: 0)
+
 
 #orders on items
 ItemOrder.create(item: tire, order: order0, price: tire.price, quantity: 2)
@@ -63,3 +66,8 @@ ItemOrder.create(item: dog_bowl, order: order2, price: dog_bowl.price, quantity:
 ItemOrder.create(item: pull_toy, order: order3, price: pull_toy.price, quantity: 4)
 ItemOrder.create(item: dog_leash, order: order4, price: dog_leash.price, quantity: 3)
 ItemOrder.create(item: tire, order: order4, price: tire.price, quantity: 2)
+ItemOrder.create(item: tire, order: order5, price: tire.price, quantity: 13)
+ItemOrder.create(item: tire, order: order5, price: tire.price, quantity: 8)
+ItemOrder.create(item: pull_toy, order: order5, price: pull_toy.price, quantity: 33)
+ItemOrder.create(item: tire, order: order6, price: tire.price, quantity: 5)
+ItemOrder.create(item: pull_toy, order: order6, price: pull_toy.price, quantity: 33)
