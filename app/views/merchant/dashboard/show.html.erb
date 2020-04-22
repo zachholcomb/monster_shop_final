@@ -23,6 +23,12 @@
       <% else %>
         <p>All orders fulfilled!</p>
       <% end %>
+      <h4>Items where orders exceed their inventory:</h4>
+      <% @merchant.items.each do |item| %>
+        <% if @merchant.orders_exceed_inventory?(item) %>
+          <p><%= item.name %> has too many orders on it, you need to contact the buyers!</p>
+        <% end %>
+      <% end %>
     </section>
   </section>
   <section class = 'grid-item-light'>
