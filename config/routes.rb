@@ -5,32 +5,38 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   #merchants
-  get "/merchants", to: "merchants#index"
-  get "/merchants/new", to: "merchants#new"
-  get "/merchants/:id", to: "merchants#show"
-  get "/merchants/:merchant_id/items", to: "merchants_items#index"
-  get "/merchants/:merchant_id/items/:item_id", to: "merchants_items#show"
-  post "/merchants", to: "merchants#create"
-  get "/merchants/:id/edit", to: "merchants#edit"
-  patch "/merchants/:id", to: "merchants#update"
-  delete "/merchants/:id", to: "merchants#destroy"
+  resources :merchants do
+    resources :items, only: [:index, :show]
+  end
+  # get "/merchants", to: "merchants#index"
+  # get "/merchants/new", to: "merchants#new"
+  # get "/merchants/:id", to: "merchants#show"
+  # get "/merchants/:merchant_id/items", to: "merchants_items#index"
+  # get "/merchants/:merchant_id/items/:item_id", to: "merchants_items#show"
+  # post "/merchants", to: "merchants#create"
+  # get "/merchants/:id/edit", to: "merchants#edit"
+  # patch "/merchants/:id", to: "merchants#update"
+  # delete "/merchants/:id", to: "merchants#destroy"
 
   #items
-  get "/items", to: "items#index"
-  get "/items/:id", to: "items#show"
-  get "/items/:id/edit", to: "items#edit"
-  patch "/items/:id", to: "items#update"
+  resources :items, only: [:index, :show] do
+    resources :reviews, only: [:new, :create]
+  end
+  # get "/items", to: "items#index"
+  # get "/items/:id", to: "items#show"
+  # get "/items/:id/edit", to: "items#edit"
+  # patch "/items/:id", to: "items#update"
+
   
-  get "/merchants/:merchant_id/items/new", to: "items#new"
-  post "/merchants/:merchant_id/items", to: "items#create"
-  delete "/items/:id", to: "items#destroy"
+  
 
   #reviews
-  get "/items/:item_id/reviews/new", to: "reviews#new"
-  post "/items/:item_id/reviews", to: "reviews#create"
-  get "/reviews/:id/edit", to: "reviews#edit"
-  patch "/reviews/:id", to: "reviews#update"
-  delete "/reviews/:id", to: "reviews#destroy"
+  resources :reviews, only: [:edit, :update, :destroy]
+  # get "/items/:item_id/reviews/new", to: "reviews#new"
+  # post "/items/:item_id/reviews", to: "reviews#create"
+  # get "/reviews/:id/edit", to: "reviews#edit"
+  # patch "/reviews/:id", to: "reviews#update"
+  # delete "/reviews/:id", to: "reviews#destroy"
 
   #cart
   post "/cart/:item_id", to: "cart#add_item"
@@ -41,9 +47,10 @@ Rails.application.routes.draw do
   delete "/cart/:item_id", to: "cart#remove_item"
 
   #orders
-  get "/orders/new", to: "orders#new"
-  post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  resources :orders, only: [:new, :create, :show]
+  # get "/orders/new", to: "orders#new"
+  # post "/orders", to: "orders#create"
+  # get "/orders/:id", to: "orders#show"
 
   #sessions
   get "/login", to: "sessions#new"
@@ -65,28 +72,33 @@ Rails.application.routes.draw do
   #merchant
   namespace :merchant do
     get '/dashboard', to: 'dashboard#show'
-    get '/items', to: 'items#index'
-    patch '/items/:id', to: 'items#update'
-    delete '/items/:id', to: 'items#destroy'
-    get '/items/new', to: 'items#new'
-    post '/items', to: 'items#create'
-    get 'items/:id/edit', to: 'items#edit'
-    get '/orders/:id', to: 'orders#show'
-    patch '/item_orders/:id/', to: 'item_orders#update'
+    resources :items
+    # get '/items', to: 'items#index'
+    # patch '/items/:id', to: 'items#update'
+    # delete '/items/:id', to: 'items#destroy'
+    # get '/items/new', to: 'items#new'
+    # post '/items', to: 'items#create'
+    # get 'items/:id/edit', to: 'items#edit'
+    resources :orders, only: [:show]
+    resources :item_orders, only: [:update]
+    # get '/orders/:id', to: 'orders#show'
+    # patch '/item_orders/:id/', to: 'item_orders#update'
     resources :discounts
   end
 
   #admin
   namespace :admin do
     get "/dashboard", to: "dashboard#show"
-    get '/users', to: 'users#index'
-    get "/users/:user_id", to: "users#show"
-    get '/users/:user_id/password/edit', to: 'users_password#edit'
-    patch '/users/:user_id/password/edit', to: 'users_password#update'
-    get '/users/:user_id/edit', to: 'users#edit'
-    patch '/users/:user_id', to: 'users#update'
-    get '/users/:user_id/orders', to: 'users_orders#index'
-    get '/merchants', to: 'merchants#index'
+    resources :users do
+      get '/password/edit', to: 'users_password#edit'
+      patch '/password/edit', to: 'users_password#update'
+      get '/orders', to: 'users_orders#index'
+    end
+    # get '/users', to: 'users#index'
+    # get "/users/:user_id", to: "users#show"
+    # get '/users/:user_id/edit', to: 'users#edit'
+    # patch '/users/:user_id', to: 'users#update'
+    # get '/merchants', to: 'merchants#index'
     resources :items
     resources :orders, only: [:update]
     resources :merchants do
