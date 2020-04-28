@@ -55,7 +55,7 @@ class Merchant <ApplicationRecord
   end
 
   def exceeds_inventory?(order)
-    if order.item_orders.joins(:item).where("items.merchant_id = #{self.id} AND item_orders.quantity > items.inventory") != []
+    if order.item_orders.joins(:item).where("items.merchant_id = ? AND item_orders.quantity > items.inventory", self.id) != []
       true
     else 
       false
