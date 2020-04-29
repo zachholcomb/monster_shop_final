@@ -27,9 +27,6 @@ Rails.application.routes.draw do
   # get "/items/:id/edit", to: "items#edit"
   # patch "/items/:id", to: "items#update"
 
-  
-  
-
   #reviews
   resources :reviews, only: [:edit, :update, :destroy]
   # get "/items/:item_id/reviews/new", to: "reviews#new"
