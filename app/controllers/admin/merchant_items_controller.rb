@@ -14,7 +14,7 @@ class Admin::MerchantItemsController < Admin::BaseController
   end
 
   def edit
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
   end
 
   def update
@@ -40,11 +40,11 @@ class Admin::MerchantItemsController < Admin::BaseController
   end
   
   def find_item(merchant)
-    merchant.items.find(params[:item_id])
+    merchant.items.find(params[:id])
   end
 
   def update_item
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
     @item.update(item_params)
     if @item.save
       redirect_to "/admin/merchants/#{@item.merchant_id}/items"

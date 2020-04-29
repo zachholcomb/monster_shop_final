@@ -5,7 +5,7 @@ class Admin::MerchantDiscountsController < ApplicationController
   end
 
   def show
-    @discount = Discount.find(params[:discount_id])
+    @discount = Discount.find(params[:id])
   end
 
   def new
@@ -20,7 +20,7 @@ class Admin::MerchantDiscountsController < ApplicationController
   end
 
   def edit
-    @discount = Discount.find(params[:discount_id])
+    @discount = Discount.find(params[:id])
   end
 
   def update
@@ -45,7 +45,7 @@ class Admin::MerchantDiscountsController < ApplicationController
   end
 
   def get_discount_from_merchant(merchant)
-    merchant.discounts.find(params[:discount_id])
+    merchant.discounts.find(params[:id])
   end
 
   def discount_update_success(merchant)
