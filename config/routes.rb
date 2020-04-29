@@ -90,9 +90,10 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/dashboard", to: "dashboard#show"
     resources :users do
+      resources :orders, only: [:index], controller: 'users_orders'
       get '/password/edit', to: 'users_password#edit'
-      patch '/password/edit', to: 'users_password#update'
-      get '/orders', to: 'users_orders#index'
+      patch '/password/edit', to: 'users_password#update'     
+      # get '/orders', to: 'users_orders#index'
     end
     # get '/users', to: 'users#index'
     # get "/users/:user_id", to: "users#show"
@@ -102,19 +103,21 @@ Rails.application.routes.draw do
     resources :items
     resources :orders, only: [:update]
     resources :merchants do
-      get '/discounts/new', to: 'merchant_discounts#new'
-      post '/discounts', to: 'merchant_discounts#create'
-      get '/discounts/:discount_id', to: 'merchant_discounts#show'
-      get '/discounts', to: 'merchant_discounts#index'
-      get '/discounts/:discount_id/edit', to: 'merchant_discounts#edit'
-      patch '/discounts/:discount_id', to: 'merchant_discounts#update'
-      delete '/discounts/:discount_id', to: 'merchant_discounts#destroy'
-      get '/items', to: 'merchant_items#index'
-      get '/items/:item_id/edit', to: 'merchant_items#edit'
-      patch '/items/:item_id', to: 'merchant_items#update'
-      get '/items/new', to: 'merchant_items#new'
-      post '/items', to: 'merchant_items#create'
-      delete '/items/:item_id', to: 'merchant_items#destroy'
+      resources :discounts, controller: 'merchant_discounts'
+      resources :items, controller: 'merchant_items'
+      # get '/discounts/new', to: 'merchant_discounts#new'
+      # post '/discounts', to: 'merchant_discounts#create'
+      # get '/discounts/:id', to: 'merchant_discounts#show'
+      # get '/discounts', to: 'merchant_discounts#index'
+      # get '/discounts/:id/edit', to: 'merchant_discounts#edit'
+      # patch '/discounts/:id', to: 'merchant_discounts#update'
+      # delete '/discounts/:id', to: 'merchant_discounts#destroy'
+      # get '/items', to: 'merchant_items#index'
+      # get '/items/:id/edit', to: 'merchant_items#edit'
+      # patch '/items/:id', to: 'merchant_items#update'
+      # get '/items/new', to: 'merchant_items#new'
+      # post '/items', to: 'merchant_items#create'
+      # delete '/items/:id', to: 'merchant_items#destroy'
     end
   end
 end
